@@ -1,0 +1,30 @@
+{
+    "午后" : [
+        {
+            "name" : "Bingo",
+            "url" : "Bingo.m4a",
+            "tag" : "儿歌"
+        }
+    ],
+    "睡前" : [
+        {
+            "name" : "Brezairola Lullaby",
+            "url" : "BrezairolaLullaby.m4a",
+            "tag" : "音乐"
+        }
+    ],
+    "玩耍" : [
+        {
+            "name" : "Mary had a Little Lamb",
+            "url" : "MaryHadaLittleLamb.m4a",
+            "tag" : "儿歌"
+        }
+    ],
+    "起床" : [
+        {
+            "name" : "If You are Happy",
+            "url" : "IfYouAreHappy.m4a",
+            "tag" : "儿歌"
+        }
+    ]
+}
