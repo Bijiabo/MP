@@ -31,7 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
         server.delegate = self
         
         //copy media files to Cache directory
-        //copyToCashDir(formPathInBundle: "resource/media", toPathInCache: "media")
+        CopyFile()
         
         //set root VC
         let rootViewController : mainViewController = window?.rootViewController as! mainViewController
@@ -73,10 +73,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
     }
     
     internal func togglePlayPause () -> Bool
-    {
-        println("player:")
-        println(player.url )
-        
+    {   
         if player.playing
         {
             player.pause()
@@ -263,15 +260,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
         
         let cachePath : String = NSSearchPathForDirectoriesInDomains(.CachesDirectory , .UserDomainMask, true)[0] as! String
 
-        
         let playFileName : String = playContent["url"] as! String
         
-        let bundlePath : NSURL = NSBundle.mainBundle().URLForResource(playFileName, withExtension: "", subdirectory: "resource/media")!
+        let playURL : NSURL = NSURL(fileURLWithPath: "\(cachePath)/resource/media/\(playFileName)")!
         
-        let playURL : NSURL = bundlePath
-//        NSURL(fileURLWithPath: "\(cachePath)/media/\(playFileName)")!
+        let playerData : NSData = NSData(contentsOfURL: playURL)!
         
-        player = AVAudioPlayer(contentsOfURL: playURL, error: nil)
+        player = AVAudioPlayer(data: playerData, error: nil)
         player.delegate = self
         
         if prevPlayingStatus
@@ -312,5 +307,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
             refreshPlayer()
         }
     }
+    
+    func audioPlayerBeginInterruption(player: AVAudioPlayer!) {
+        player.play()
+    }
+    
+    func audioPlayerDecodeErrorDidOccur(player: AVAudioPlayer!, error: NSError!) {
+        println( "audioPlayerDecodeErrorDidOccur" )
+        
+        println(error)
+    }
+    /*
+    func audioPlayerBeginInterruption(player: AVAudioPlayer!) {
+        println("audioPlayerBeginInterruption")
+    }
+    */
 }
 
