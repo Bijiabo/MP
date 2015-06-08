@@ -38,8 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
         
         rootViewController.delegate = self
         
-        //MARK : player
-        initPlayer()
+        initPlayerAndView()
         
         _initMPRemoteCommandCenter()
         
@@ -202,38 +201,42 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
     }   
     
     
-    func initPlayer () -> Void
+    func initPlayerAndView () -> Void
     {
-        var prevPlayingStatus : Bool = false
-        
-        if player != nil
-        {
-            prevPlayingStatus = player.playing
-        }
-        
         let playContent = server.currentPlayContent()
         
         let cachePath : String = NSSearchPathForDirectoriesInDomains(.CachesDirectory , .UserDomainMask, true)[0] as! String
-
+        
         let playFileName : String = playContent["url"] as! String
         
         let playURL : NSURL = NSURL(fileURLWithPath: "\(cachePath)/resource/media/\(playFileName)")!
         
-        let playerData : NSData? = NSData(contentsOfURL: playURL)
+        //let list = NSFileManager.defaultManager().contentsOfDirectoryAtURL(NSURL(fileURLWithPath: "\(cachePath)/resource/media/")!, includingPropertiesForKeys: nil, options: nil, error: nil)
+        
+        
+        let playURLInBundle : NSURL = NSBundle.mainBundle().URLForResource(playFileName, withExtension: "", subdirectory: "/resource/media")!
+        
+        let playerData : NSData? = NSData(contentsOfURL: playURL )
+        
+        
+        //test load media file in Cache directory by NSData
+        var e : NSError?
+        
+        let playerDataInCache = NSData(contentsOfURL: playURL, options: nil, error: &e)
+        
+        println("player data's length:")
+        println( NSData(contentsOfURL: playURL)?.length )
+        println(e)
         
         var error : NSError?
         
-        player = AVAudioPlayer(data: playerData, error: &error)
+        player = AVAudioPlayer(contentsOfURL: playURL, error: &error)
         
         println(error)
         
-        player.delegate = self
-
+        player.prepareToPlay()
         
-        if prevPlayingStatus
-        {
-            player.play()
-        }
+        player.delegate = self
         
         refreshView()
     }
@@ -269,10 +272,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
         
         var error : NSError?
         
-        player = AVAudioPlayer(data: playerData, error: &error)
-        player.prepareToPlay()
+        player = AVAudioPlayer(contentsOfURL: playURL, error: &error)
         
         println(error)
+        
+        player.prepareToPlay()
         
         player.delegate = self
         
@@ -322,7 +326,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
         {
             server.currentScene = targetScene
             
-            initPlayer()
+            refreshPlayerAndView(switchToNext: false)
         }
     }
     
