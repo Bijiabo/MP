@@ -17,10 +17,15 @@ class CopyBundleFilesToCache {
         
         let bundleResourceDirectoryURL : NSURL! = NSBundle.mainBundle().resourceURL?.URLByAppendingPathComponent("resource")
         
-        copyFiles(fromeURL: bundleResourceDirectoryURL, targetPath: targetPath)
+        copyBundleFilesToCache(fromeURL: bundleResourceDirectoryURL, targetPath: targetPath)
+        
+        removeFileProtection(path: targetPath)
+        removeFileProtection(path: targetPath + "media")
+        
+        loopFilesToRemoveProtection(path: targetPath + "media")
     }
     
-    func copyFiles(#fromeURL : NSURL  , targetPath : String) -> Void
+    func copyBundleFilesToCache(#fromeURL : NSURL  , targetPath : String) -> Void
     {
         let fileManager : NSFileManager = NSFileManager.defaultManager()
         
@@ -54,7 +59,7 @@ class CopyBundleFilesToCache {
                     else
                     {
                         //文件存在，检查一下里面
-                        copyFiles(fromeURL: path as! NSURL, targetPath: targetPath + "/" + pathLastPathComponent + "/")
+                        copyBundleFilesToCache(fromeURL: path as! NSURL, targetPath: targetPath + "/" + pathLastPathComponent + "/")
                     }
                 }
             }
@@ -63,6 +68,31 @@ class CopyBundleFilesToCache {
         else
         {
             fileManager.copyItemAtURL(fromeURL, toURL: NSURL(fileURLWithPath: targetPath)!, error: nil)
+        }
+    }
+    
+    func removeFileProtection (#path : String) -> Void
+    {
+        println(path)
+        
+        let attributes : Dictionary = [NSFileProtectionKey : NSFileProtectionNone]
+        
+        var error : NSError?
+        
+        NSFileManager.defaultManager().setAttributes(attributes, ofItemAtPath: path, error: &error)
+        
+        println("remove fileprotection error : ")
+        println(error)
+        println("------")
+    }
+    
+    func loopFilesToRemoveProtection (#path : String) -> Void
+    {
+        let list : [AnyObject] = NSFileManager.defaultManager().contentsOfDirectoryAtURL(NSURL(fileURLWithPath: path)!, includingPropertiesForKeys: nil, options: nil, error: nil)!
+        
+        for item in list //as [AnyObject]
+        {
+            removeFileProtection(path: (item as! NSURL).relativePath!  )
         }
     }
 }

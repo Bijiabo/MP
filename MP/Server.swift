@@ -27,6 +27,15 @@ class Server {
     var currentScene : String = ""
     
     var currentIndexOfScene : Int = 0
+    {
+        didSet
+        {
+            if playlist[currentScene].arrayValue.count - 1 < currentIndexOfScene
+            {
+                currentIndexOfScene = 0
+            }
+        }
+    }
     
     init()
     {

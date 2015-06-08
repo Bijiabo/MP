@@ -39,7 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
         rootViewController.delegate = self
         
         //MARK : player
-        refreshPlayer()
+        initPlayer()
         
         _initMPRemoteCommandCenter()
         
@@ -71,32 +71,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     
-    internal func togglePlayPause () -> Bool
-    {   
-        if player.playing
-        {
-            player.pause()
-        }
-        else
+    internal func togglePlayPause () -> Void
+    {
+        setPayerPlayingStatus(play: !player.playing)
+    }
+    
+    func setPayerPlayingStatus(#play : Bool) -> Void
+    {
+        if play
         {
             player.play()
         }
+        else
+        {
+            player.pause()
+        }
         
         refreshView()
-      
-        return player.playing
     }
 
     func audioPlayerDidFinishPlaying(player: AVAudioPlayer!, successfully flag: Bool) {
         
-        server.currentIndexOfScene++
+        refreshPlayerAndView(switchToNext: true)
         
-        refreshPlayer()
-        
-        if !player.playing
-        {
-            togglePlayPause()
-        }
+        setPayerPlayingStatus(play: true)
     }
     
     private func _initAVAudioSession () -> Void
@@ -113,7 +111,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
         MPRemoteCommandCenter.sharedCommandCenter().pauseCommand.addTargetWithHandler {
             (event : MPRemoteCommandEvent!) -> MPRemoteCommandHandlerStatus in
             
-            self.togglePlayPause()
+            self.setPayerPlayingStatus(play: false)
             
             return MPRemoteCommandHandlerStatus.Success
         }
@@ -121,7 +119,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
         MPRemoteCommandCenter.sharedCommandCenter().playCommand.addTargetWithHandler {
             (event : MPRemoteCommandEvent!) -> MPRemoteCommandHandlerStatus in
             
-            self.togglePlayPause()
+            self.setPayerPlayingStatus(play: true)
             
             return MPRemoteCommandHandlerStatus.Success
         }
@@ -137,14 +135,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
         MPRemoteCommandCenter.sharedCommandCenter().nextTrackCommand.addTargetWithHandler {
             (event : MPRemoteCommandEvent!) -> MPRemoteCommandHandlerStatus in
             
-            self.server.currentIndexOfScene++
-            
-            self.refreshPlayer()
-            
-            if !self.player.playing
-            {
-                self.togglePlayPause()
-            }
+            self.refreshPlayerAndView(switchToNext: true)
             
             return MPRemoteCommandHandlerStatus.Success
         }
@@ -211,7 +202,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
     }   
     
     
-    func refreshPlayer () -> Void
+    func initPlayer () -> Void
     {
         var prevPlayingStatus : Bool = false
         
@@ -228,15 +219,62 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
         
         let playURL : NSURL = NSURL(fileURLWithPath: "\(cachePath)/resource/media/\(playFileName)")!
         
-        println(playURL)
+        let playerData : NSData? = NSData(contentsOfURL: playURL)
         
+        var error : NSError?
         
-        let playerData : NSData = NSData(contentsOfURL: playURL)!
+        player = AVAudioPlayer(data: playerData, error: &error)
         
-        player = AVAudioPlayer(data: playerData, error: nil)
+        println(error)
+        
         player.delegate = self
+
         
-        player.currentTime = NSTimeInterval(900.0)
+        if prevPlayingStatus
+        {
+            player.play()
+        }
+        
+        refreshView()
+    }
+    
+    func refreshPlayer() -> Void
+    {
+        var prevPlayingStatus : Bool = player.playing
+        
+        let playContent = server.currentPlayContent()
+        
+        let cachePath : String = NSSearchPathForDirectoriesInDomains(.CachesDirectory , .UserDomainMask, true)[0] as! String
+        
+        let playFileName : String = playContent["url"] as! String
+        
+        let playURL : NSURL = NSURL(fileURLWithPath: "\(cachePath)/resource/media/\(playFileName)")!
+        
+        //let list = NSFileManager.defaultManager().contentsOfDirectoryAtURL(NSURL(fileURLWithPath: "\(cachePath)/resource/media/")!, includingPropertiesForKeys: nil, options: nil, error: nil)
+        
+        
+        let playURLInBundle : NSURL = NSBundle.mainBundle().URLForResource(playFileName, withExtension: "", subdirectory: "/resource/media")!
+        
+        let playerData : NSData? = NSData(contentsOfURL: playURL )
+        
+        
+        //test load media file in Cache directory by NSData
+        var e : NSError?
+        
+        let playerDataInCache = NSData(contentsOfURL: playURL, options: nil, error: &e)
+        
+        println("player data's length:")
+        println( NSData(contentsOfURL: playURL)?.length )
+        println(e)
+        
+        var error : NSError?
+        
+        player = AVAudioPlayer(data: playerData, error: &error)
+        player.prepareToPlay()
+        
+        println(error)
+        
+        player.delegate = self
         
         if prevPlayingStatus
         {
@@ -267,13 +305,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
         updateMPNowPlayingInfoCenter()
     }
     
+    func refreshPlayerAndView(#switchToNext : Bool)
+    {
+        if switchToNext
+        {
+            server.currentIndexOfScene++
+        }
+        
+        refreshPlayer()
+        refreshView()
+    }
+    
     func switchScene (#targetScene : String) -> Void
     {
         if targetScene != server.currentScene
         {
             server.currentScene = targetScene
             
-            refreshPlayer()
+            initPlayer()
         }
     }
     
