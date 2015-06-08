@@ -67,7 +67,7 @@ class mainViewController: UIViewController, UITabBarDelegate
 
     }
 
-    func _refreshTabBar (#tabbar : UITabBar , scenelist : Array<String> , currentScene : String) -> Void
+    func _refreshTabBar (#tabbar : UITabBar?, scenelist : Array<String> , currentScene : String) -> Void
     {
         if self.tabBar == nil {return}
         
@@ -90,13 +90,13 @@ class mainViewController: UIViewController, UITabBarDelegate
             tabbarItemsCache.append(item)
         }
         
-        tabbar.setItems(tabbarItemsCache, animated: true)
+        tabbar!.setItems(tabbarItemsCache, animated: true)
         
-        for barItem in tabbar.items as! [UITabBarItem]
+        for barItem in tabbar!.items as! [UITabBarItem]
         {
             if barItem.tag == currentSceneTag
             {
-                tabbar.selectedItem = barItem
+                tabbar!.selectedItem = barItem
                 break
             }
         }
@@ -175,10 +175,7 @@ class mainViewController: UIViewController, UITabBarDelegate
     {
         refreshView()
         
-        if self.tabBar != nil
-        {
-            _refreshTabBar(tabbar: tabBar, scenelist: model["scenelist"] as! Array<String>, currentScene: model["currentScene"] as! String)
-        }
+        _refreshTabBar(tabbar: tabBar, scenelist: model["scenelist"] as! Array<String>, currentScene: model["currentScene"] as! String)
     }
     
     
