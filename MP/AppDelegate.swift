@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
 {
     var window: UIWindow?
     
-    var player : AVAudioPlayer!
+    var player : audioPlayer!
 
     var server : Server!
     
@@ -186,24 +186,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
     func updateMPNowPlayingInfoCenter () -> Void
     {
         
-        let currentPlayItemContent : Dictionary<String,AnyObject> = server.currentPlayContent()
+        let currentPlayItemContent : Dictionary<String,String> = server.currentPlayContent()
         
-        let currentPlayItemName : String = currentPlayItemContent["name"] as! String
+        let currentPlayItemName : String = currentPlayItemContent["name"]!
         let _MPMediaItemPropertyArtist: String = server.currentScene
         
         // LOCK/CONTROLCENTER: Title / AlbumTitle - Artist
         // REMOTE MENU: Title / Artist
         MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo = [
             MPMediaItemPropertyAlbumArtist: "磨耳朵", // not displayed
-//            MPMediaItemPropertyAlbumTitle: "磨耳朵",
+            //MPMediaItemPropertyAlbumTitle: "磨耳朵",
             MPMediaItemPropertyTitle: currentPlayItemName,
             MPMediaItemPropertyArtist:  "\(_MPMediaItemPropertyArtist)磨耳朵"
             //,MPMediaItemPropertyArtwork: MPMediaItemArtwork(image:  UIImage(named: "resource/image/logo.jpg") )
         ]
     }   
     
-    
-    func initPlayerAndView () -> Void
+    func initPlayer () -> Void
     {
         let playContent = server.currentPlayContent()
         
@@ -213,28 +212,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
         
         let playURL : NSURL = NSURL(fileURLWithPath: "\(cachePath)/resource/media/\(playFileName)")!
         
-        //let list = NSFileManager.defaultManager().contentsOfDirectoryAtURL(NSURL(fileURLWithPath: "\(cachePath)/resource/media/")!, includingPropertiesForKeys: nil, options: nil, error: nil)
-        
-        
-        let playURLInBundle : NSURL = NSBundle.mainBundle().URLForResource(playFileName, withExtension: "", subdirectory: "/resource/media")!
-        
         let playerData : NSData? = NSData(contentsOfURL: playURL )
-        
-        
-        //test load media file in Cache directory by NSData
-        var e : NSError?
-        
-        let playerDataInCache = NSData(contentsOfURL: playURL, options: nil, error: &e)
         
         var error : NSError?
         
-        player = AVAudioPlayer(contentsOfURL: playURL, error: &error)
-        
-        
+        player = audioPlayer(contentsOfURL: playURL, error: &error)
         
         player.prepareToPlay()
         
         player.delegate = self
+    }
+    
+    func initPlayerAndView () -> Void
+    {
+        initPlayer()
         
         refreshView()
     }
@@ -243,41 +234,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
     {
         var prevPlayingStatus : Bool = player.playing
         
-        let playContent = server.currentPlayContent()
-        
-        let cachePath : String = NSSearchPathForDirectoriesInDomains(.CachesDirectory , .UserDomainMask, true)[0] as! String
-        
-        let playFileName : String = playContent["url"]!
-        
-        let playURL : NSURL = NSURL(fileURLWithPath: "\(cachePath)/resource/media/\(playFileName)")!
-        
-        //let list = NSFileManager.defaultManager().contentsOfDirectoryAtURL(NSURL(fileURLWithPath: "\(cachePath)/resource/media/")!, includingPropertiesForKeys: nil, options: nil, error: nil)
-        
-        
-        let playURLInBundle : NSURL = NSBundle.mainBundle().URLForResource(playFileName, withExtension: "", subdirectory: "/resource/media")!
-        
-        let playerData : NSData? = NSData(contentsOfURL: playURL )
-        
-        
-        //test load media file in Cache directory by NSData
-        var e : NSError?
-        
-        let playerDataInCache = NSData(contentsOfURL: playURL, options: nil, error: &e)
-        
-        var error : NSError?
-        
-        player = AVAudioPlayer(contentsOfURL: playURL, error: &error)
-        
-        player.prepareToPlay()
-        
-        player.delegate = self
+        initPlayer()
         
         if prevPlayingStatus
         {
             player.play()
         }
-        
-        refreshView()
     }
 
     
@@ -327,9 +289,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
     }
     
     func audioPlayerDecodeErrorDidOccur(player: AVAudioPlayer!, error: NSError!) {
-//        println( "audioPlayerDecodeErrorDidOccur" )
+        //println( "audioPlayerDecodeErrorDidOccur" )
         
-//        println(error)
+        //println(error)
     }
     /*
     func audioPlayerBeginInterruption(player: AVAudioPlayer!) {
