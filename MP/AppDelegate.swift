@@ -167,7 +167,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
                 (e: MPRemoteCommandEvent!) -> MPRemoteCommandHandlerStatus in
                 
                 MPRemoteCommandCenter.sharedCommandCenter().likeCommand.active = false
-                MPRemoteCommandCenter.sharedCommandCenter().dislikeCommand.active = true
+                MPRemoteCommandCenter.sharedCommandCenter().dislikeCommand.active = false
+                
+                self.refreshPlayerAndView(switchToNext: true)
                 
                 return MPRemoteCommandHandlerStatus.Success
         }
