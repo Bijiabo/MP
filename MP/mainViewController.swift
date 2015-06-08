@@ -198,6 +198,9 @@ class mainViewController: UIViewController, UITabBarDelegate
         return UIStatusBarStyle.LightContent
     }
     
+    @IBAction func tapDislikeButton(sender: AnyObject) {
+        delegate.refreshPlayerAndView(switchToNext: true)
+    }
     
 }
 
