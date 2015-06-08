@@ -36,8 +36,6 @@ class CopyFile {
             
             if (pathlist != nil)
             {
-                println(pathlist)
-                
                 //is a directory
                 
                 for path in pathlist!

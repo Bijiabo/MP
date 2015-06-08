@@ -37,7 +37,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
         let rootViewController : mainViewController = window?.rootViewController as! mainViewController
         
         rootViewController.delegate = self
-        rootViewController.server = server
         
         //MARK : player
         refreshPlayer()
@@ -90,11 +89,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
 
     func audioPlayerDidFinishPlaying(player: AVAudioPlayer!, successfully flag: Bool) {
         
-        player.currentTime = NSTimeInterval(0)
+        server.currentIndexOfScene++
         
-        player.play()
+        refreshPlayer()
         
-        updateMPNowPlayingInfoCenter()
+        if !player.playing
+        {
+            togglePlayPause()
+        }
     }
     
     private func _initAVAudioSession () -> Void
@@ -197,54 +199,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
             MPMediaItemPropertyArtist:  "\(_MPMediaItemPropertyArtist)磨耳朵"
             //,MPMediaItemPropertyArtwork: MPMediaItemArtwork(image:  UIImage(named: "resource/image/logo.jpg") )
         ]
-    }
-    
-    func copyToCashDir (#formPathInBundle : String , toPathInCache : String ) -> Void
-    {
-        let fileManager : NSFileManager = NSFileManager.defaultManager()
-        let originalFilePath : NSURL = NSBundle.mainBundle().resourceURL!.URLByAppendingPathComponent(formPathInBundle, isDirectory: true)
-        
-        let cachePath : String = NSSearchPathForDirectoriesInDomains(.CachesDirectory , .UserDomainMask, true)[0] as! String
-        
-        println(cachePath)
-        
-        //if media directory isn't exists
-        
-        var err : NSError?
-        var isDir : ObjCBool = true
-        
-        let ifMediaFileInCacheExists : Bool = fileManager.fileExistsAtPath("\(cachePath)/media", isDirectory : &isDir)
-        
-        if !ifMediaFileInCacheExists
-        {
-            fileManager.copyItemAtURL(originalFilePath, toURL: NSURL(fileURLWithPath:"\(cachePath)/\(toPathInCache)")!, error: &err)
-            
-            return
-        }
-        
-        
-        //check media file lists
-        
-        let originalFileList : [AnyObject] = (fileManager.contentsOfDirectoryAtURL(originalFilePath, includingPropertiesForKeys: nil, options: nil, error: nil) as [AnyObject]?)!
-
-        for fileName in originalFileList
-        {
-            let fileNameString: AnyObject = fileName.lastPathComponent
-        
-            let targetURL : NSURL = NSURL(fileURLWithPath: "\(cachePath)/\(toPathInCache)/\(fileNameString)")!
-            
-            var isNotDir : ObjCBool = false
-            
-            let ifMediaItemFileInCacheExists : Bool = fileManager.fileExistsAtPath(targetURL.absoluteString! , isDirectory : &isNotDir)
-            if !ifMediaItemFileInCacheExists
-            {
-                var error : NSError?
-                
-                fileManager.copyItemAtURL(fileName as! NSURL, toURL: targetURL , error: &error)
-            }
-        }
-
-    }
+    }   
     
     
     func refreshPlayer () -> Void
@@ -268,6 +223,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
         
         player = AVAudioPlayer(data: playerData, error: nil)
         player.delegate = self
+        
+        player.currentTime = NSTimeInterval(900.0)
         
         if prevPlayingStatus
         {

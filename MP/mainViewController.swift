@@ -21,8 +21,6 @@ class mainViewController: UIViewController, UITabBarDelegate
     
     var delegate : AppDelegate!
     
-    var server : Server!
-    
     var tabbarLoaded : Bool = false
     
     var model : Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
@@ -116,7 +114,7 @@ class mainViewController: UIViewController, UITabBarDelegate
         if backgroundImageView == nil {return}
         let resourceURL : NSURL = NSBundle.mainBundle().resourceURL!.URLByAppendingPathComponent("resource/image", isDirectory: true)
       
-        let sceneKey : String = server.currentScene
+        let sceneKey : String = model["currentScene"] as! String
         
         let imagePath : NSURL = resourceURL.URLByAppendingPathComponent("\(sceneKey).jpg")
 
@@ -127,7 +125,7 @@ class mainViewController: UIViewController, UITabBarDelegate
     {
         if self.navigationBarTitle == nil {return}
 
-        let sceneName : String = server.currentScene
+        let sceneName : String = model["currentScene"] as! String
         
         navigationBarTitle.title = "\(sceneName)磨耳朵"
     }
@@ -163,7 +161,7 @@ class mainViewController: UIViewController, UITabBarDelegate
     
     func selectedTabBar (#tag : Int) -> Void
     {
-        let scene : String = server.sceneList()[tag]
+        let scene : String = (model["scenelist"] as! [String])[tag]
         
         delegate.switchScene(targetScene: scene)
     }
