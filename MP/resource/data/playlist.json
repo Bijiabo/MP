@@ -1,160 +1,172 @@
-{
-  "游戏":  [
-      {
-        "name": "As I was going to St Ives",
-        "url": "fef4gu4x.ja4.mp3",
-        "tag": "童谣"
-      },
-      {
-        "name": "Boy and girl",
-        "url": "ilq3uuce.05s.mp3",
-        "tag": "儿歌"
-      },
-      {
-        "name": "Colour Song",
-        "url": "m4d33gat.et4.mp3",
-        "tag": "英文启蒙"
-      },
-      {
-        "name": "eight o'clock",
-        "url": "4fyspjbk.cdx.mp3",
-        "tag": "童谣"
-      },
-      {
-        "name": "Mabel, Mabel",
-        "url": "5efhrlqp.ne4.mp3",
-        "tag": "童谣"
-      },
-      {
-        "name": "Row row row your boat",
-        "url": "ozfiqwo4.bbe.mp3",
-        "tag": "儿歌"
-      },
-      {
-        "name": "The Library",
-        "url": "llbuoj4e.tpz.mp3",
-        "tag": "儿歌"
-      },
-      {
-        "name": "The Music Room",
-        "url": "ltp2qu1t.lmo.mp3",
-        "tag": "儿歌"
-      },
-      {
-        "name": "Three blind Mice",
-        "url": "bppk5yvg.rcq.mp3",
-        "tag": "儿歌"
-      },
-      {
-        "name": "Two Little Eyes",
-        "url": "mrwfazym.lpr.mp3",
-        "tag": "儿歌"
-      }
-    ],
-  "午后":  [
-      {
-        "name": "A True, True Friend",
-        "url": "truifizf.2id.mp3",
-        "tag": "儿歌"
-      },
-      {
-        "name": "Babs Seed",
-        "url": "owek5vzo.gar.mp3",
-        "tag": "儿歌"
-      },
-      {
-        "name": "Forever Young",
-        "url": "mob0xuxd.teb.mp3",
-        "tag": "音乐"
-      },
-      {
-        "name": "Hschenparty",
-        "url": "klmvkb03.vxo.mp3",
-        "tag": "儿歌"
-      },
-      {
-        "name": "REGALERO' UN SOGNO",
-        "url": "fijuteas.5ip.mp3",
-        "tag": "儿歌"
-      },
-      {
-        "name": "The Smile Song",
-        "url": "gmjtqr0w.uc3.mp3",
-        "tag": "儿歌"
-      },
-      {
-        "name": "This Is The Way",
-        "url": "xmfj00vh.nnf.mp3",
-        "tag": "儿歌"
-      },
-      {
-        "name": "柴可夫斯基-巧克力糖",
-        "url": "bigncadu.yv4.mp3",
-        "tag": "音乐"
-      },
-      {
-        "name": "海顿-惊愕",
-        "url": "5kiuh11k.mcp.mp3",
-        "tag": "音乐"
-      },
-      {
-        "name": "Talk to the Animals",
-        "url": "y30hvmfg.mym.mp3",
-        "tag": "儿歌"
-      }
-    ],
-  "催眠":  [
-      {
-        "name": "Always With Me",
-        "url": "4sb2gva0.eab.mp3",
-        "tag": "音乐"
-      },
-      {
-        "name": "You are my sunshine",
-        "url": "ewlwwem4.vps.mp3",
-        "tag": "儿歌"
-      },
-      {
-        "name": "伴我独眠的摇篮曲",
-        "url": "pcbbp2lt.5rb.mp3",
-        "tag": "儿歌"
-      },
-      {
-        "name": "梦之后",
-        "url": "ymsbyk15.puh.mp3",
-        "tag": "音乐"
-      },
-      {
-        "name": "德彪西-月光",
-        "url": "qrcujkcd.ovx.mp3",
-        "tag": "音乐"
-      }
-    ],
-  "起床":  [
-      {
-        "name": "Sunshine on Oxcart",
-        "url": "gt0adnn4.m1p.mp3",
-        "tag": "音乐"
-      },
-      {
-        "name": "天空的影子",
-        "url": "ihjda0pv.xol.mp3",
-        "tag": "童谣"
-      },
-      {
-        "name": "Don't Worry Be Happy",
-        "url": "0avbkadi.zln.mp3",
-        "tag": "儿歌"
-      },
-      {
-        "name": "维瓦尔第-春",
-        "url": "ovitzleo.aqn.mp3",
-        "tag": "音乐"
-      },
-      {
-        "name": "Good Morning To You",
-        "url": "pivjmpqv.zuu.mp3",
-        "tag": "儿歌"
-      }
-    ]
-}
+[
+    {
+        "name" : "起床",
+        "list" : [
+            {
+              "name": "Sunshine on Oxcart",
+              "url": "gt0adnn4.m1p.mp3",
+              "tag": "音乐"
+            },
+            {
+              "name": "天空的影子",
+              "url": "ihjda0pv.xol.mp3",
+              "tag": "童谣"
+            },
+            {
+              "name": "Don't Worry Be Happy",
+              "url": "0avbkadi.zln.mp3",
+              "tag": "儿歌"
+            },
+            {
+              "name": "维瓦尔第-春",
+              "url": "ovitzleo.aqn.mp3",
+              "tag": "音乐"
+            },
+            {
+              "name": "Good Morning To You",
+              "url": "pivjmpqv.zuu.mp3",
+              "tag": "儿歌"
+            }
+          ]
+    },
+    {
+        "name" : "玩耍",
+        "list" : [
+            {
+              "name": "As I was going to St Ives",
+              "url": "fef4gu4x.ja4.mp3",
+              "tag": "童谣"
+            },
+            {
+              "name": "Boy and girl",
+              "url": "ilq3uuce.05s.mp3",
+              "tag": "儿歌"
+            },
+            {
+              "name": "Colour Song",
+              "url": "m4d33gat.et4.mp3",
+              "tag": "英文启蒙"
+            },
+            {
+              "name": "eight o'clock",
+              "url": "4fyspjbk.cdx.mp3",
+              "tag": "童谣"
+            },
+            {
+              "name": "Mabel, Mabel",
+              "url": "5efhrlqp.ne4.mp3",
+              "tag": "童谣"
+            },
+            {
+              "name": "Row row row your boat",
+              "url": "ozfiqwo4.bbe.mp3",
+              "tag": "儿歌"
+            },
+            {
+              "name": "The Library",
+              "url": "llbuoj4e.tpz.mp3",
+              "tag": "儿歌"
+            },
+            {
+              "name": "The Music Room",
+              "url": "ltp2qu1t.lmo.mp3",
+              "tag": "儿歌"
+            },
+            {
+              "name": "Three blind Mice",
+              "url": "bppk5yvg.rcq.mp3",
+              "tag": "儿歌"
+            },
+            {
+              "name": "Two Little Eyes",
+              "url": "mrwfazym.lpr.mp3",
+              "tag": "儿歌"
+            }
+          ]
+    },
+    {
+        "name" : "午后",
+        "list" : [
+            {
+              "name": "A True, True Friend",
+              "url": "truifizf.2id.mp3",
+              "tag": "儿歌"
+            },
+            {
+              "name": "Babs Seed",
+              "url": "owek5vzo.gar.mp3",
+              "tag": "儿歌"
+            },
+            {
+              "name": "Forever Young",
+              "url": "mob0xuxd.teb.mp3",
+              "tag": "音乐"
+            },
+            {
+              "name": "Hschenparty",
+              "url": "klmvkb03.vxo.mp3",
+              "tag": "儿歌"
+            },
+            {
+              "name": "REGALERO' UN SOGNO",
+              "url": "fijuteas.5ip.mp3",
+              "tag": "儿歌"
+            },
+            {
+              "name": "The Smile Song",
+              "url": "gmjtqr0w.uc3.mp3",
+              "tag": "儿歌"
+            },
+            {
+              "name": "This Is The Way",
+              "url": "xmfj00vh.nnf.mp3",
+              "tag": "儿歌"
+            },
+            {
+              "name": "柴可夫斯基-巧克力糖",
+              "url": "bigncadu.yv4.mp3",
+              "tag": "音乐"
+            },
+            {
+              "name": "海顿-惊愕",
+              "url": "5kiuh11k.mcp.mp3",
+              "tag": "音乐"
+            },
+            {
+              "name": "Talk to the Animals",
+              "url": "y30hvmfg.mym.mp3",
+              "tag": "儿歌"
+            }
+        ]
+    },
+    {
+        "name" : "睡前",
+        "list" : [
+            {
+              "name": "Always With Me",
+              "url": "4sb2gva0.eab.mp3",
+              "tag": "音乐"
+            },
+            {
+              "name": "You are my sunshine",
+              "url": "ewlwwem4.vps.mp3",
+              "tag": "儿歌"
+            },
+            {
+              "name": "伴我独眠的摇篮曲",
+              "url": "pcbbp2lt.5rb.mp3",
+              "tag": "儿歌"
+            },
+            {
+              "name": "梦之后",
+              "url": "ymsbyk15.puh.mp3",
+              "tag": "音乐"
+            },
+            {
+              "name": "德彪西-月光",
+              "url": "qrcujkcd.ovx.mp3",
+              "tag": "音乐"
+            }
+          ]
+    }
+]

@@ -63,7 +63,7 @@ class MPTests: XCTestCase {
             
             let cachePath : String = NSSearchPathForDirectoriesInDomains(.CachesDirectory , .UserDomainMask, true)[0] as! String
             
-            let playFileName : String = playContent["url"] as! String
+            let playFileName : String = playContent["url"]!
             
             let playURL : NSURL = NSURL(fileURLWithPath: "\(cachePath)/media/\(playFileName)")!
             

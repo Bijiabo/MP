@@ -30,7 +30,7 @@ class Server {
     {
         didSet
         {
-            if playlist[currentScene].arrayValue.count - 1 < currentIndexOfScene
+            if getCurrentScenePlaylist().count - 1 < currentIndexOfScene
             {
                 currentIndexOfScene = 0
             }
@@ -43,57 +43,77 @@ class Server {
         
         for (key : String , subJson : JSON) in playlist
         {
-            currentScene = key
+            currentScene = subJson["name"].stringValue
+            
             break
         }
     }
     
+    func getCurrentScenePlaylist() -> [Dictionary<String,String>]
+    {
+        var list : [Dictionary<String,String>] = [Dictionary<String,String>]()
+        
+        for (key : String , subJson : JSON) in playlist
+        {
+            if subJson["name"].stringValue == currentScene
+            {
+                for (key1 : String , subJson1 : JSON) in subJson["list"]
+                {
+                    list.append([
+                        "name" : subJson1["name"].stringValue,
+                        "url": subJson1["url"].stringValue,
+                        "tag": subJson1["tag"].stringValue
+                        ])
+                }
+                
+                break
+            }
+        }
+        
+        return list
+    }
+    
     //get next play content
-    func nextPlayConent () -> Dictionary<String,AnyObject>
+    func nextPlayConent () -> Dictionary<String,String>
     {
         let index : Int = currentIndexOfScene + 1
         
         return _getPlayContent(index)
     }
     
-    func currentPlayContent () -> Dictionary<String,AnyObject>
+    func currentPlayContent () -> Dictionary<String,String>
     {
         let index : Int = currentIndexOfScene
         
         return _getPlayContent(index)
     }
     
-    func prevPlayContent () -> Dictionary<String,AnyObject>
+    func prevPlayContent () -> Dictionary<String,String>
     {
         let index : Int = currentIndexOfScene - 1
         
         return _getPlayContent(index)
     }
     
-    private func _getPlayContent(index : Int) -> Dictionary<String,AnyObject>
+    private func _getPlayContent(index : Int) -> Dictionary<String,String>
     {
         var playContentIndex : Int = index
         
-        if playlist[currentScene].arrayValue.count - 1 < index
+        let currentScenePlaylist : [Dictionary<String,String>] = getCurrentScenePlaylist()
+        
+        if currentScenePlaylist.count - 1 < index
         {
             playContentIndex = 0
         }
         
         if index < 0
         {
-            playContentIndex = playlist[currentScene].arrayValue.count - 1
+            playContentIndex = currentScenePlaylist.count - 1
         }
         
-        let playContent = playlist[currentScene][playContentIndex]
+        let playContent : Dictionary<String,String> = currentScenePlaylist[playContentIndex]
         
-        var playContentDictionary : Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
-        
-        for (key : String , subJson : JSON) in playContent
-        {
-            playContentDictionary[key] = subJson.stringValue
-        }
-        
-        return playContentDictionary
+        return playContent
     }
     
     
@@ -103,7 +123,7 @@ class Server {
         
         for (key : String , subJson : JSON) in playlist
         {
-            sceneArray.append(key)
+            sceneArray.append(subJson["name"].stringValue)
         }
         
         return sceneArray

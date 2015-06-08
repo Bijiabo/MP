@@ -207,7 +207,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
         
         let cachePath : String = NSSearchPathForDirectoriesInDomains(.CachesDirectory , .UserDomainMask, true)[0] as! String
         
-        let playFileName : String = playContent["url"] as! String
+        let playFileName : String = playContent["url"]!
         
         let playURL : NSURL = NSURL(fileURLWithPath: "\(cachePath)/resource/media/\(playFileName)")!
         
@@ -224,15 +224,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
         
         let playerDataInCache = NSData(contentsOfURL: playURL, options: nil, error: &e)
         
-        println("player data's length:")
-        println( NSData(contentsOfURL: playURL)?.length )
-        println(e)
-        
         var error : NSError?
         
         player = AVAudioPlayer(contentsOfURL: playURL, error: &error)
         
-        println(error)
+        
         
         player.prepareToPlay()
         
@@ -249,7 +245,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
         
         let cachePath : String = NSSearchPathForDirectoriesInDomains(.CachesDirectory , .UserDomainMask, true)[0] as! String
         
-        let playFileName : String = playContent["url"] as! String
+        let playFileName : String = playContent["url"]!
         
         let playURL : NSURL = NSURL(fileURLWithPath: "\(cachePath)/resource/media/\(playFileName)")!
         
@@ -266,15 +262,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
         
         let playerDataInCache = NSData(contentsOfURL: playURL, options: nil, error: &e)
         
-        println("player data's length:")
-        println( NSData(contentsOfURL: playURL)?.length )
-        println(e)
-        
         var error : NSError?
         
         player = AVAudioPlayer(contentsOfURL: playURL, error: &error)
-        
-        println(error)
         
         player.prepareToPlay()
         
@@ -335,9 +325,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
     }
     
     func audioPlayerDecodeErrorDidOccur(player: AVAudioPlayer!, error: NSError!) {
-        println( "audioPlayerDecodeErrorDidOccur" )
+//        println( "audioPlayerDecodeErrorDidOccur" )
         
-        println(error)
+//        println(error)
     }
     /*
     func audioPlayerBeginInterruption(player: AVAudioPlayer!) {
