@@ -8,7 +8,7 @@
 
 import Foundation
 
-class CopyFile {
+class CopyBundleFilesToCache {
     init()
     {
         let cachePath : String = NSSearchPathForDirectoriesInDomains(.CachesDirectory , .UserDomainMask, true)[0] as! String

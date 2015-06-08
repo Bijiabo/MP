@@ -21,8 +21,6 @@ class mainViewController: UIViewController, UITabBarDelegate
     
     var delegate : AppDelegate!
     
-    var tabbarLoaded : Bool = false
-    
     var model : Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
     {
         didSet
@@ -38,18 +36,15 @@ class mainViewController: UIViewController, UITabBarDelegate
         
         tabBar.delegate = self
         
-        refreshView()
+        initView()
         
-        //update audio info view
-        
-        //_updateAudioInfoView(playlist[0]["name"]!, tag: playlist[0]["tag"]!)
     }
     
     override func viewWillAppear(animated: Bool) {
         
         super.viewWillAppear(animated)
         
-//        refreshView()
+        refreshView()
     }
     
 
@@ -58,24 +53,23 @@ class mainViewController: UIViewController, UITabBarDelegate
         super.didReceiveMemoryWarning()
     }
     
-    func _refreshNavigationBar (#navigationBar : UINavigationBar) -> Void
+    func _refreshNavigationBar (#navigationBar : UINavigationBar?) -> Void
     {
-
-        navigationBar.translucent = true
-        navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
+        if navigationBar == nil {return}
         
-        navigationBar.titleTextAttributes = [
+        navigationBar!.translucent = true
+        navigationBar!.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
+        
+        navigationBar!.titleTextAttributes = [
             NSForegroundColorAttributeName : UIColor.whiteColor()
         ]
-        navigationBar.shadowImage = UIImage()
+        navigationBar!.shadowImage = UIImage()
 
     }
 
     func _refreshTabBar (#tabbar : UITabBar , scenelist : Array<String> , currentScene : String) -> Void
     {
-        if self.tabBar == nil || tabbarLoaded {return}
-        
-        tabbarLoaded = true
+        if self.tabBar == nil {return}
         
         var currentSceneTag : Int = 0
         
@@ -109,16 +103,17 @@ class mainViewController: UIViewController, UITabBarDelegate
         
     }
     
-    private func _refreshBackgroundImageView () -> Void
+    private func _refreshBackgroundImageView (#view : UIImageView?) -> Void
     {
-        if backgroundImageView == nil {return}
+        if view == nil {return}
+        
         let resourceURL : NSURL = NSBundle.mainBundle().resourceURL!.URLByAppendingPathComponent("resource/image", isDirectory: true)
       
         let sceneKey : String = model["currentScene"] as! String
         
         let imagePath : NSURL = resourceURL.URLByAppendingPathComponent("\(sceneKey).jpg")
 
-        backgroundImageView.image = UIImage(contentsOfFile: imagePath.relativePath!)
+        view!.image = UIImage(contentsOfFile: imagePath.relativePath!)
     }
     
     func _updateTitle () -> Void
@@ -135,8 +130,10 @@ class mainViewController: UIViewController, UITabBarDelegate
       delegate.togglePlayPause()
     }
     
-    func _refreshPlayPauseButtonView (#button : UIButton  , playing : Bool) -> Void
+    func _refreshPlayPauseButtonView (#button : UIButton?  , playing : Bool) -> Void
     {
+        if button == nil {return}
+        
         var playPauseButtonImageName : String = "playButton"
         
         if playing
@@ -144,9 +141,9 @@ class mainViewController: UIViewController, UITabBarDelegate
             playPauseButtonImageName = "pauseButton"
         }
       
-      button.setImage(UIImage(named: playPauseButtonImageName), forState: UIControlState.Normal)
-      button.setImage(UIImage(named: "\(playPauseButtonImageName)_active"), forState: UIControlState.Highlighted)
-      button.setImage(UIImage(named: "\(playPauseButtonImageName)_active"), forState: UIControlState.Selected)
+      button!.setImage(UIImage(named: playPauseButtonImageName), forState: UIControlState.Normal)
+      button!.setImage(UIImage(named: "\(playPauseButtonImageName)_active"), forState: UIControlState.Highlighted)
+      button!.setImage(UIImage(named: "\(playPauseButtonImageName)_active"), forState: UIControlState.Selected)
     }
     
     func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem!)
@@ -174,29 +171,28 @@ class mainViewController: UIViewController, UITabBarDelegate
         audioTag.text = tag
     }
     
-    func refreshView ()
+    func initView ()
     {
-
-        if self.mainNavigationBar != nil
-        {
-            _refreshNavigationBar(navigationBar: mainNavigationBar)
-        }
+        refreshView()
         
-        _updateTitle()
-
         if self.tabBar != nil
         {
             _refreshTabBar(tabbar: tabBar, scenelist: model["scenelist"] as! Array<String>, currentScene: model["currentScene"] as! String)
         }
+    }
+    
+    
+    func refreshView ()
+    {
+        _refreshNavigationBar(navigationBar: mainNavigationBar)
+        
+        _updateTitle()
 
-        if self.playPauseButton != nil
-        {
-            _refreshPlayPauseButtonView(button: self.playPauseButton, playing: model["playing"] as! Bool)
-        }
+        _refreshPlayPauseButtonView(button: self.playPauseButton, playing: model["playing"] as! Bool)
         
         _refreshAudioInfoView(name: model["name"] as! String, tag: model["tag"] as! String)
 
-        _refreshBackgroundImageView()
+        _refreshBackgroundImageView(view: self.backgroundImageView)
 
     }
     

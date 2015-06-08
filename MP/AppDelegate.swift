@@ -31,7 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
         server.delegate = self
         
         //copy media files to Cache directory
-        CopyFile()
+        CopyBundleFilesToCache()
         
         //set root VC
         let rootViewController : mainViewController = window?.rootViewController as! mainViewController
@@ -137,6 +137,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
         MPRemoteCommandCenter.sharedCommandCenter().nextTrackCommand.addTargetWithHandler {
             (event : MPRemoteCommandEvent!) -> MPRemoteCommandHandlerStatus in
             
+            self.server.currentIndexOfScene++
+            
+            self.refreshPlayer()
+            
+            if !self.player.playing
+            {
+                self.togglePlayPause()
+            }
+            
             return MPRemoteCommandHandlerStatus.Success
         }
         
@@ -219,6 +228,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
         
         let playURL : NSURL = NSURL(fileURLWithPath: "\(cachePath)/resource/media/\(playFileName)")!
         
+        println(playURL)
+        
+        
         let playerData : NSData = NSData(contentsOfURL: playURL)!
         
         player = AVAudioPlayer(data: playerData, error: nil)
@@ -233,7 +245,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
         
         refreshView()
     }
-    
+
     
     func refreshView()
     {
