@@ -16,8 +16,6 @@ class RemoteCommandCenter : UIResponder {
     
     func _initMPRemoteCommandCenter () -> Void
     {
-        //MARK : MPRemoteCommandCenter
-        
         MPRemoteCommandCenter.sharedCommandCenter().pauseCommand.addTargetWithHandler {
             (event : MPRemoteCommandEvent!) -> MPRemoteCommandHandlerStatus in
             
@@ -26,91 +24,86 @@ class RemoteCommandCenter : UIResponder {
             return MPRemoteCommandHandlerStatus.Success
         }
         
-        MPRemoteCommandCenter.sharedCommandCenter().playCommand.addTargetWithHandler {
-            (event : MPRemoteCommandEvent!) -> MPRemoteCommandHandlerStatus in
-            
-            self.delegate.setPayerPlayingStatus(play: true)
-            
-            return MPRemoteCommandHandlerStatus.Success
-        }
+        MPRemoteCommandCenter.sharedCommandCenter().playCommand.addTarget(self, action: Selector("playCommand:"))
         
-        MPRemoteCommandCenter.sharedCommandCenter().togglePlayPauseCommand.addTargetWithHandler(
-            {
-                (event : MPRemoteCommandEvent!) -> MPRemoteCommandHandlerStatus in
-                
-                self.delegate.togglePlayPause()
-                
-                return MPRemoteCommandHandlerStatus.Success
-            }
-        )
-        
-        /*
-        MPRemoteCommandCenter.sharedCommandCenter().nextTrackCommand.addTargetWithHandler(
-        {
-        (event : MPRemoteCommandEvent!) -> MPRemoteCommandHandlerStatus in
-        
-        self.refreshPlayerAndView(switchToNext: true)
-        
-        return MPRemoteCommandHandlerStatus.Success
-        })
-        */
+        MPRemoteCommandCenter.sharedCommandCenter().togglePlayPauseCommand.addTarget(self, action: Selector("togglePlayPauseCommand:"))
         
         MPRemoteCommandCenter.sharedCommandCenter().nextTrackCommand.addTarget(self, action: Selector("nextTrackCommand:") )
-        
-        MPRemoteCommandCenter.sharedCommandCenter().previousTrackCommand.addTargetWithHandler {
-            (event : MPRemoteCommandEvent!) -> MPRemoteCommandHandlerStatus in
-            
-            return MPRemoteCommandHandlerStatus.Success
-        }
-        
+
+        MPRemoteCommandCenter.sharedCommandCenter().previousTrackCommand.addTarget(self, action: Selector("previousTrackCommand:"))
         
         //child like
         MPRemoteCommandCenter.sharedCommandCenter().likeCommand.localizedTitle = "😃 孩子喜欢"
         
-        MPRemoteCommandCenter.sharedCommandCenter().likeCommand.addTargetWithHandler
-            {
-                (e: MPRemoteCommandEvent!) -> MPRemoteCommandHandlerStatus in
-                
-                MPRemoteCommandCenter.sharedCommandCenter().likeCommand.active = true
-                MPRemoteCommandCenter.sharedCommandCenter().dislikeCommand.active = false
-                
-                return MPRemoteCommandHandlerStatus.Success
-        }
-        
+        MPRemoteCommandCenter.sharedCommandCenter().likeCommand.addTarget(self, action: Selector("childLike:"))
         //child dislike
         MPRemoteCommandCenter.sharedCommandCenter().dislikeCommand.localizedTitle = "😞 孩子不喜欢"
         
-        MPRemoteCommandCenter.sharedCommandCenter().dislikeCommand.addTargetWithHandler
-            {
-                (e: MPRemoteCommandEvent!) -> MPRemoteCommandHandlerStatus in
-                
-                MPRemoteCommandCenter.sharedCommandCenter().likeCommand.active = false
-                MPRemoteCommandCenter.sharedCommandCenter().dislikeCommand.active = false
-                
-                self.delegate.refreshPlayerAndView(switchToNext: true)
-                
-                return MPRemoteCommandHandlerStatus.Success
-        }
-        
+        MPRemoteCommandCenter.sharedCommandCenter().dislikeCommand.addTarget(self, action: Selector("dislikeCommand:"))
         MPRemoteCommandCenter.sharedCommandCenter().bookmarkCommand.localizedTitle = "🎵 再放一遍"
-        MPRemoteCommandCenter.sharedCommandCenter().bookmarkCommand.addTargetWithHandler
-            {
-                (e: MPRemoteCommandEvent!) -> MPRemoteCommandHandlerStatus in
-                
-                return MPRemoteCommandHandlerStatus.Success
-        }
+        MPRemoteCommandCenter.sharedCommandCenter().bookmarkCommand.addTarget(self, action: Selector("playAgain:"))
         
         UIApplication.sharedApplication().beginReceivingRemoteControlEvents()
         self.delegate.becomeFirstResponder()
     }
     
     
-    //test
-    func nextTrackCommand (e: MPRemoteCommandEvent!) -> MPRemoteCommandHandlerStatus
+    internal func pauseCommand (e: MPRemoteCommandEvent!) -> MPRemoteCommandHandlerStatus
+    {
+        self.delegate.setPayerPlayingStatus(play: false)
+        
+        return MPRemoteCommandHandlerStatus.Success
+    }
+    
+    internal func playCommand (e: MPRemoteCommandEvent!) -> MPRemoteCommandHandlerStatus
+    {
+        self.delegate.setPayerPlayingStatus(play: true)
+        
+        return MPRemoteCommandHandlerStatus.Success
+    }
+    
+    internal func togglePlayPauseCommand (e: MPRemoteCommandEvent!) -> MPRemoteCommandHandlerStatus
+    {
+        self.delegate.togglePlayPause()
+        
+        return MPRemoteCommandHandlerStatus.Success
+    }
+    
+    internal func previousTrackCommand (e: MPRemoteCommandEvent!) -> MPRemoteCommandHandlerStatus
     {
         self.delegate.refreshPlayerAndView(switchToNext: true)
         
         return MPRemoteCommandHandlerStatus.Success
     }
     
+    internal func nextTrackCommand (e: MPRemoteCommandEvent!) -> MPRemoteCommandHandlerStatus
+    {
+        
+        self.delegate.refreshPlayerAndView(switchToNext: true)
+        
+        return MPRemoteCommandHandlerStatus.Success
+    }
+    
+    internal func childLike (e: MPRemoteCommandEvent!) -> MPRemoteCommandHandlerStatus
+    {
+        MPRemoteCommandCenter.sharedCommandCenter().likeCommand.active = true
+        MPRemoteCommandCenter.sharedCommandCenter().dislikeCommand.active = false
+    
+        return MPRemoteCommandHandlerStatus.Success
+    }
+    
+    internal func dislikeCommand (e: MPRemoteCommandEvent!) -> MPRemoteCommandHandlerStatus
+    {
+        MPRemoteCommandCenter.sharedCommandCenter().likeCommand.active = false
+        MPRemoteCommandCenter.sharedCommandCenter().dislikeCommand.active = false
+        
+        self.delegate.refreshPlayerAndView(switchToNext: true)
+        
+        return MPRemoteCommandHandlerStatus.Success
+    }
+    
+    internal func playAgain (e: MPRemoteCommandEvent!) -> MPRemoteCommandHandlerStatus
+    {
+        return MPRemoteCommandHandlerStatus.Success
+    }
 }
