@@ -27,6 +27,7 @@
 		A19380611B25E2EC003F9AFA /* audioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19380601B25E2EC003F9AFA /* audioPlayer.swift */; };
 		A19380621B25E38F003F9AFA /* audioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19380601B25E2EC003F9AFA /* audioPlayer.swift */; };
 		A19380641B25E682003F9AFA /* RemoteCommandCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19380631B25E682003F9AFA /* RemoteCommandCenter.swift */; };
+		A19380831B2726B8003F9AFA /* RemoteCommandCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19380631B25E682003F9AFA /* RemoteCommandCenter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -294,6 +295,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A19380831B2726B8003F9AFA /* RemoteCommandCenter.swift in Sources */,
 				A19380621B25E38F003F9AFA /* audioPlayer.swift in Sources */,
 				A11A39B51B243670001D7682 /* CopyBundleFilesToCache.swift in Sources */,
 				A17CB14A1B204AF40085DD0E /* AppDelegate.swift in Sources */,
