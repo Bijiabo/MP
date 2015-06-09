@@ -26,6 +26,7 @@
 		A17CB14A1B204AF40085DD0E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839BC78D1B1CAE8900075C7C /* AppDelegate.swift */; };
 		A19380611B25E2EC003F9AFA /* audioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19380601B25E2EC003F9AFA /* audioPlayer.swift */; };
 		A19380621B25E38F003F9AFA /* audioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19380601B25E2EC003F9AFA /* audioPlayer.swift */; };
+		A19380641B25E682003F9AFA /* RemoteCommandCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19380631B25E682003F9AFA /* RemoteCommandCenter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		A17CB1421B202A730085DD0E /* swiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = swiftyJSON.swift; sourceTree = "<group>"; };
 		A17CB1441B202F360085DD0E /* dataLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = dataLoader.swift; sourceTree = "<group>"; };
 		A19380601B25E2EC003F9AFA /* audioPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = audioPlayer.swift; sourceTree = "<group>"; };
+		A19380631B25E682003F9AFA /* RemoteCommandCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteCommandCenter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 				839BC7941B1CAE8900075C7C /* Images.xcassets */,
 				839BC7961B1CAE8900075C7C /* LaunchScreen.xib */,
 				839BC78B1B1CAE8900075C7C /* Supporting Files */,
+				A19380631B25E682003F9AFA /* RemoteCommandCenter.swift */,
 			);
 			path = MP;
 			sourceTree = "<group>";
@@ -276,6 +279,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A19380641B25E682003F9AFA /* RemoteCommandCenter.swift in Sources */,
 				A17CB1451B202F360085DD0E /* dataLoader.swift in Sources */,
 				A19380611B25E2EC003F9AFA /* audioPlayer.swift in Sources */,
 				A17CB13F1B1D4A830085DD0E /* Server.swift in Sources */,

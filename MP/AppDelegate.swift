@@ -123,21 +123,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
             return MPRemoteCommandHandlerStatus.Success
         }
         
-        MPRemoteCommandCenter.sharedCommandCenter().togglePlayPauseCommand.addTargetWithHandler {
+        MPRemoteCommandCenter.sharedCommandCenter().togglePlayPauseCommand.addTargetWithHandler(
+            {
             (event : MPRemoteCommandEvent!) -> MPRemoteCommandHandlerStatus in
             
             self.togglePlayPause()
             
             return MPRemoteCommandHandlerStatus.Success
-        }
-        
-        MPRemoteCommandCenter.sharedCommandCenter().nextTrackCommand.addTargetWithHandler {
+            }
+        )
+
+        /*
+        MPRemoteCommandCenter.sharedCommandCenter().nextTrackCommand.addTargetWithHandler(
+        {
             (event : MPRemoteCommandEvent!) -> MPRemoteCommandHandlerStatus in
             
             self.refreshPlayerAndView(switchToNext: true)
             
             return MPRemoteCommandHandlerStatus.Success
-        }
+        })
+*/
+        
+        MPRemoteCommandCenter.sharedCommandCenter().nextTrackCommand.addTarget(self, action: Selector("nextTrackCommand:") )
         
         MPRemoteCommandCenter.sharedCommandCenter().previousTrackCommand.addTargetWithHandler {
             (event : MPRemoteCommandEvent!) -> MPRemoteCommandHandlerStatus in
@@ -181,6 +188,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
                 
                 return MPRemoteCommandHandlerStatus.Success
         }
+        
+        UIApplication.sharedApplication().beginReceivingRemoteControlEvents()
+        self.becomeFirstResponder()
+    }
+    
+    
+    //test
+    func nextTrackCommand (e: MPRemoteCommandEvent!) -> MPRemoteCommandHandlerStatus
+    {
+        self.refreshPlayerAndView(switchToNext: true)
+        
+        return MPRemoteCommandHandlerStatus.Success
     }
     
     func updateMPNowPlayingInfoCenter () -> Void
