@@ -5,16 +5,16 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>9AC9E407-FAEE-4CE2-985C-8EA534E1612D</string>
+	<string>EF4F3773-7BD0-45AD-9440-8EEE0867DDA0</string>
 	<key>IDESourceControlProjectName</key>
-	<string>MP</string>
+	<string>playground</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>E2BC2304B1F98C34021935BE923137A45F9FBA4A</key>
 		<string>https://github.com/Bijiabo/MP.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>MP.xcodeproj</string>
+	<string>MyPlayground.playground/playground.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>E2BC2304B1F98C34021935BE923137A45F9FBA4A</key>

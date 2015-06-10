@@ -121,8 +121,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
             MPMediaItemPropertyAlbumArtist: "磨耳朵", // not displayed
             //MPMediaItemPropertyAlbumTitle: "磨耳朵",
             MPMediaItemPropertyTitle: currentPlayItemName,
-            MPMediaItemPropertyArtist:  "\(_MPMediaItemPropertyArtist)磨耳朵"
-            //,MPMediaItemPropertyArtwork: MPMediaItemArtwork(image:  UIImage(named: "resource/image/logo.jpg") )
+            MPMediaItemPropertyArtist:  "\(_MPMediaItemPropertyArtist)磨耳朵",
+            MPMediaItemPropertyArtwork: MPMediaItemArtwork(image:  LockScreenView(imageName: server.currentScene, title: "\(server.currentScene)磨耳朵", description: currentPlayItemName).image )
         ]
     }   
     
