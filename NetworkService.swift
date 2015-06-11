@@ -18,7 +18,7 @@ import Foundation
 
 import Foundation
 
-class NetworkService{
+class NetworkService : NSObject {
     
     private var _meteorClient : MeteorClient!
     private var _domain : String = "localhost"
@@ -26,10 +26,10 @@ class NetworkService{
     
     private var _DDPconnecting : Bool = false
     
-    
-    
     init(domain : String , port : String)
     {
+        super.init()
+        
         _domain = domain
         _port = port
         
