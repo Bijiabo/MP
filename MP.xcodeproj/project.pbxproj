@@ -38,6 +38,10 @@
 		A1D011A41B2982F20074A0A3 /* MP-Bridging-Header.h in Sources */ = {isa = PBXBuildFile; fileRef = A1D011951B297E540074A0A3 /* MP-Bridging-Header.h */; };
 		A1FE10831B29FEFC00EE2B73 /* userInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FE10821B29FEFC00EE2B73 /* userInformationViewController.swift */; };
 		A1FE10841B29FEFC00EE2B73 /* userInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FE10821B29FEFC00EE2B73 /* userInformationViewController.swift */; };
+		A1FE108D1B2A088E00EE2B73 /* playlistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FE108C1B2A088E00EE2B73 /* playlistViewController.swift */; };
+		A1FE108E1B2A088E00EE2B73 /* playlistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FE108C1B2A088E00EE2B73 /* playlistViewController.swift */; };
+		A1FE10901B2A0A0D00EE2B73 /* playlistTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FE108F1B2A0A0D00EE2B73 /* playlistTableViewCell.swift */; };
+		A1FE10911B2A0A0D00EE2B73 /* playlistTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FE108F1B2A0A0D00EE2B73 /* playlistTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +81,8 @@
 		A1D0119A1B297F2E0074A0A3 /* libPods.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPods.a; path = "Pods/../build/Debug-iphoneos/libPods.a"; sourceTree = "<group>"; };
 		A1D0119C1B297F460074A0A3 /* libPods-SocketRocket.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-SocketRocket.a"; path = "Pods/../build/Debug-iphoneos/libPods-SocketRocket.a"; sourceTree = "<group>"; };
 		A1FE10821B29FEFC00EE2B73 /* userInformationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = userInformationViewController.swift; sourceTree = "<group>"; };
+		A1FE108C1B2A088E00EE2B73 /* playlistViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = playlistViewController.swift; sourceTree = "<group>"; };
+		A1FE108F1B2A0A0D00EE2B73 /* playlistTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = playlistTableViewCell.swift; sourceTree = "<group>"; };
 		D6D52C8D4D36BCAA866B4883 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -135,6 +141,7 @@
 		839BC78A1B1CAE8900075C7C /* MP */ = {
 			isa = PBXGroup;
 			children = (
+				A1FE10921B2A0A1400EE2B73 /* Cells */,
 				A193805F1B25E2AF003F9AFA /* players */,
 				A193805E1B25E126003F9AFA /* lib */,
 				A193805D1B25E119003F9AFA /* servers */,
@@ -180,6 +187,7 @@
 			children = (
 				839BC78F1B1CAE8900075C7C /* mainViewController.swift */,
 				A1FE10821B29FEFC00EE2B73 /* userInformationViewController.swift */,
+				A1FE108C1B2A088E00EE2B73 /* playlistViewController.swift */,
 			);
 			name = controllers;
 			sourceTree = "<group>";
@@ -209,6 +217,14 @@
 				A19380601B25E2EC003F9AFA /* audioPlayer.swift */,
 			);
 			name = players;
+			sourceTree = "<group>";
+		};
+		A1FE10921B2A0A1400EE2B73 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				A1FE108F1B2A0A0D00EE2B73 /* playlistTableViewCell.swift */,
+			);
+			name = Cells;
 			sourceTree = "<group>";
 		};
 		E6B4D2BF09CB9DEA65E36E78 /* Pods */ = {
@@ -396,11 +412,13 @@
 				A1D011931B297E2B0074A0A3 /* NetworkService.swift in Sources */,
 				A19380641B25E682003F9AFA /* RemoteCommandCenter.swift in Sources */,
 				A1FE10831B29FEFC00EE2B73 /* userInformationViewController.swift in Sources */,
+				A1FE108D1B2A088E00EE2B73 /* playlistViewController.swift in Sources */,
 				A1D011981B297E540074A0A3 /* bridge.m in Sources */,
 				A17CB1451B202F360085DD0E /* dataLoader.swift in Sources */,
 				A19380611B25E2EC003F9AFA /* audioPlayer.swift in Sources */,
 				A17CB13F1B1D4A830085DD0E /* Server.swift in Sources */,
 				A15EA3161B27F05F0053AFCD /* LockScreenView.swift in Sources */,
+				A1FE10901B2A0A0D00EE2B73 /* playlistTableViewCell.swift in Sources */,
 				A11A39B41B2432D3001D7682 /* CopyBundleFilesToCache.swift in Sources */,
 				839BC7901B1CAE8900075C7C /* mainViewController.swift in Sources */,
 				839BC78E1B1CAE8900075C7C /* AppDelegate.swift in Sources */,
@@ -421,7 +439,9 @@
 				A11A39B51B243670001D7682 /* CopyBundleFilesToCache.swift in Sources */,
 				A17CB1491B2045F20085DD0E /* mainViewController.swift in Sources */,
 				A1FE10841B29FEFC00EE2B73 /* userInformationViewController.swift in Sources */,
+				A1FE108E1B2A088E00EE2B73 /* playlistViewController.swift in Sources */,
 				A17CB1481B20340D0085DD0E /* Server.swift in Sources */,
+				A1FE10911B2A0A0D00EE2B73 /* playlistTableViewCell.swift in Sources */,
 				A17CB1471B202FC50085DD0E /* swiftyJSON.swift in Sources */,
 				A15EA3171B27F05F0053AFCD /* LockScreenView.swift in Sources */,
 				A17CB1461B202F360085DD0E /* dataLoader.swift in Sources */,
