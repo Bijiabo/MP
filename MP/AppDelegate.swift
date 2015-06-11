@@ -24,9 +24,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
     var currentSceneIndex : Int = 0
     
     var stateAvtive : Bool = true
+    
+    var networkServer : NetworkService!
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool
     {
+        //set network server
+        networkServer = NetworkService(domain: "localhost", port: "3000")
+        
+        //set local server
         server = Server()
         server.delegate = self
         
@@ -40,7 +46,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
         
         initPlayerAndView()
         
-        _initMPRemoteCommandCenter()
+        //set MPRemoteCommandCenter
+        let remoteCommandCenter : RemoteCommandCenter = RemoteCommandCenter()
+        remoteCommandCenter.delegate = self
+        remoteCommandCenter._initMPRemoteCommandCenter()
         
         _initAVAudioSession()
         
@@ -103,104 +112,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
         AVAudioSession.sharedInstance().setActive(true, error: nil)
     }
     
-    private func _initMPRemoteCommandCenter () -> Void
-    {
-        //MARK : MPRemoteCommandCenter
-        
-        MPRemoteCommandCenter.sharedCommandCenter().pauseCommand.addTargetWithHandler {
-            (event : MPRemoteCommandEvent!) -> MPRemoteCommandHandlerStatus in
-            
-            self.setPayerPlayingStatus(play: false)
-            
-            return MPRemoteCommandHandlerStatus.Success
-        }
-        
-        MPRemoteCommandCenter.sharedCommandCenter().playCommand.addTargetWithHandler {
-            (event : MPRemoteCommandEvent!) -> MPRemoteCommandHandlerStatus in
-            
-            self.setPayerPlayingStatus(play: true)
-            
-            return MPRemoteCommandHandlerStatus.Success
-        }
-        
-        MPRemoteCommandCenter.sharedCommandCenter().togglePlayPauseCommand.addTargetWithHandler(
-            {
-            (event : MPRemoteCommandEvent!) -> MPRemoteCommandHandlerStatus in
-            
-            self.togglePlayPause()
-            
-            return MPRemoteCommandHandlerStatus.Success
-            }
-        )
-
-        /*
-        MPRemoteCommandCenter.sharedCommandCenter().nextTrackCommand.addTargetWithHandler(
-        {
-            (event : MPRemoteCommandEvent!) -> MPRemoteCommandHandlerStatus in
-            
-            self.refreshPlayerAndView(switchToNext: true)
-            
-            return MPRemoteCommandHandlerStatus.Success
-        })
-*/
-        
-        MPRemoteCommandCenter.sharedCommandCenter().nextTrackCommand.addTarget(self, action: Selector("nextTrackCommand:") )
-        
-        MPRemoteCommandCenter.sharedCommandCenter().previousTrackCommand.addTargetWithHandler {
-            (event : MPRemoteCommandEvent!) -> MPRemoteCommandHandlerStatus in
-            
-            return MPRemoteCommandHandlerStatus.Success
-        }
-        
-        
-        //child like
-        MPRemoteCommandCenter.sharedCommandCenter().likeCommand.localizedTitle = "😃 孩子喜欢"
-        
-        MPRemoteCommandCenter.sharedCommandCenter().likeCommand.addTargetWithHandler
-            {
-                (e: MPRemoteCommandEvent!) -> MPRemoteCommandHandlerStatus in
-                
-                MPRemoteCommandCenter.sharedCommandCenter().likeCommand.active = true
-                MPRemoteCommandCenter.sharedCommandCenter().dislikeCommand.active = false
-                
-                return MPRemoteCommandHandlerStatus.Success
-        }
-        
-        //child dislike
-        MPRemoteCommandCenter.sharedCommandCenter().dislikeCommand.localizedTitle = "😞 孩子不喜欢"
-        
-        MPRemoteCommandCenter.sharedCommandCenter().dislikeCommand.addTargetWithHandler
-            {
-                (e: MPRemoteCommandEvent!) -> MPRemoteCommandHandlerStatus in
-                
-                MPRemoteCommandCenter.sharedCommandCenter().likeCommand.active = false
-                MPRemoteCommandCenter.sharedCommandCenter().dislikeCommand.active = false
-                
-                self.refreshPlayerAndView(switchToNext: true)
-                
-                return MPRemoteCommandHandlerStatus.Success
-        }
-        
-        MPRemoteCommandCenter.sharedCommandCenter().bookmarkCommand.localizedTitle = "🎵 再放一遍"
-        MPRemoteCommandCenter.sharedCommandCenter().bookmarkCommand.addTargetWithHandler
-            {
-                (e: MPRemoteCommandEvent!) -> MPRemoteCommandHandlerStatus in
-                
-                return MPRemoteCommandHandlerStatus.Success
-        }
-        
-        UIApplication.sharedApplication().beginReceivingRemoteControlEvents()
-        self.becomeFirstResponder()
-    }
-    
-    
-    //test
-    func nextTrackCommand (e: MPRemoteCommandEvent!) -> MPRemoteCommandHandlerStatus
-    {
-        self.refreshPlayerAndView(switchToNext: true)
-        
-        return MPRemoteCommandHandlerStatus.Success
-    }
     
     func updateMPNowPlayingInfoCenter () -> Void
     {
@@ -216,8 +127,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
             MPMediaItemPropertyAlbumArtist: "磨耳朵", // not displayed
             //MPMediaItemPropertyAlbumTitle: "磨耳朵",
             MPMediaItemPropertyTitle: currentPlayItemName,
-            MPMediaItemPropertyArtist:  "\(_MPMediaItemPropertyArtist)磨耳朵"
-            //,MPMediaItemPropertyArtwork: MPMediaItemArtwork(image:  UIImage(named: "resource/image/logo.jpg") )
+            MPMediaItemPropertyArtist:  "\(_MPMediaItemPropertyArtist)磨耳朵",
+            MPMediaItemPropertyArtwork: MPMediaItemArtwork(image:  LockScreenView(imageName: server.currentScene, title: "\(server.currentScene)磨耳朵", description: currentPlayItemName).image )
         ]
     }   
     
