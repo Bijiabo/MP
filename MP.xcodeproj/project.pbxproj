@@ -36,6 +36,8 @@
 		A1D011A21B2982D70074A0A3 /* RemoteCommandCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19380631B25E682003F9AFA /* RemoteCommandCenter.swift */; };
 		A1D011A31B2982F20074A0A3 /* bridge.m in Sources */ = {isa = PBXBuildFile; fileRef = A1D011971B297E540074A0A3 /* bridge.m */; };
 		A1D011A41B2982F20074A0A3 /* MP-Bridging-Header.h in Sources */ = {isa = PBXBuildFile; fileRef = A1D011951B297E540074A0A3 /* MP-Bridging-Header.h */; };
+		A1FE10831B29FEFC00EE2B73 /* userInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FE10821B29FEFC00EE2B73 /* userInformationViewController.swift */; };
+		A1FE10841B29FEFC00EE2B73 /* userInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FE10821B29FEFC00EE2B73 /* userInformationViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +76,7 @@
 		A1D011971B297E540074A0A3 /* bridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bridge.m; sourceTree = "<group>"; };
 		A1D0119A1B297F2E0074A0A3 /* libPods.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPods.a; path = "Pods/../build/Debug-iphoneos/libPods.a"; sourceTree = "<group>"; };
 		A1D0119C1B297F460074A0A3 /* libPods-SocketRocket.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-SocketRocket.a"; path = "Pods/../build/Debug-iphoneos/libPods-SocketRocket.a"; sourceTree = "<group>"; };
+		A1FE10821B29FEFC00EE2B73 /* userInformationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = userInformationViewController.swift; sourceTree = "<group>"; };
 		D6D52C8D4D36BCAA866B4883 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -176,6 +179,7 @@
 			isa = PBXGroup;
 			children = (
 				839BC78F1B1CAE8900075C7C /* mainViewController.swift */,
+				A1FE10821B29FEFC00EE2B73 /* userInformationViewController.swift */,
 			);
 			name = controllers;
 			sourceTree = "<group>";
@@ -391,6 +395,7 @@
 			files = (
 				A1D011931B297E2B0074A0A3 /* NetworkService.swift in Sources */,
 				A19380641B25E682003F9AFA /* RemoteCommandCenter.swift in Sources */,
+				A1FE10831B29FEFC00EE2B73 /* userInformationViewController.swift in Sources */,
 				A1D011981B297E540074A0A3 /* bridge.m in Sources */,
 				A17CB1451B202F360085DD0E /* dataLoader.swift in Sources */,
 				A19380611B25E2EC003F9AFA /* audioPlayer.swift in Sources */,
@@ -415,6 +420,7 @@
 				A19380621B25E38F003F9AFA /* audioPlayer.swift in Sources */,
 				A11A39B51B243670001D7682 /* CopyBundleFilesToCache.swift in Sources */,
 				A17CB1491B2045F20085DD0E /* mainViewController.swift in Sources */,
+				A1FE10841B29FEFC00EE2B73 /* userInformationViewController.swift in Sources */,
 				A17CB1481B20340D0085DD0E /* Server.swift in Sources */,
 				A17CB1471B202FC50085DD0E /* swiftyJSON.swift in Sources */,
 				A15EA3171B27F05F0053AFCD /* LockScreenView.swift in Sources */,

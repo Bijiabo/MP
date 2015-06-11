@@ -6,6 +6,94 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
+        <!--User Information View Controller-->
+        <scene sceneID="wcP-Vc-6Zs">
+            <objects>
+                <viewController id="PpR-Xo-bgH" customClass="userInformationViewController" customModule="MP" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="z2q-Zt-Y7X"/>
+                        <viewControllerLayoutGuide type="bottom" id="79g-Hq-8S4"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="c5d-Xq-04E">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mm8-qa-3nu">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="20"/>
+                                <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="yvT-Xy-Lcb"/>
+                                </constraints>
+                            </view>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S2a-OA-XAK">
+                                <rect key="frame" x="0.0" y="20" width="600" height="44"/>
+                                <items>
+                                    <navigationItem title="孩子资料" id="OmM-B3-zYu">
+                                        <barButtonItem key="leftBarButtonItem" title="取消" id="SpO-d2-IPp">
+                                            <connections>
+                                                <action selector="tapCancelButton:" destination="PpR-Xo-bgH" id="vcG-rt-7Og"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" title="完成" id="I4N-jK-k79">
+                                            <connections>
+                                                <action selector="tapSaveButton:" destination="PpR-Xo-bgH" id="xX9-r8-xhi"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="孩子姓名" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4aq-mU-nz5">
+                                <rect key="frame" x="16" y="82" width="68" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="孩子性别" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rwp-qU-rPr">
+                                <rect key="frame" x="16" y="143" width="68" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="孩子生日" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EGj-M0-VvN">
+                                <rect key="frame" x="16" y="199" width="68" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0ma-7k-kOi">
+                                <rect key="frame" x="16" y="105" width="97" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lLI-i8-3WN">
+                                <rect key="frame" x="16" y="166" width="97" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <datePicker contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="oLg-NN-E8v">
+                                <rect key="frame" x="0.0" y="228" width="600" height="162"/>
+                                <date key="date" timeIntervalSinceReferenceDate="455737008.85861403">
+                                    <!--2015-06-11 17:36:48 +0000-->
+                                </date>
+                            </datePicker>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="mm8-qa-3nu" firstAttribute="top" secondItem="c5d-Xq-04E" secondAttribute="topMargin" id="6q7-FS-xlQ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="S2a-OA-XAK" secondAttribute="trailing" constant="-16" id="7nU-Td-arn"/>
+                            <constraint firstItem="S2a-OA-XAK" firstAttribute="leading" secondItem="c5d-Xq-04E" secondAttribute="leadingMargin" constant="-16" id="A1G-dA-oiK"/>
+                            <constraint firstItem="oLg-NN-E8v" firstAttribute="leading" secondItem="c5d-Xq-04E" secondAttribute="leadingMargin" constant="-16" id="eIo-hI-bpc"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="oLg-NN-E8v" secondAttribute="trailing" constant="-16" id="fwT-Gi-9hk"/>
+                            <constraint firstItem="mm8-qa-3nu" firstAttribute="leading" secondItem="c5d-Xq-04E" secondAttribute="leadingMargin" constant="-16" id="o1y-iY-6dS"/>
+                            <constraint firstItem="S2a-OA-XAK" firstAttribute="top" secondItem="c5d-Xq-04E" secondAttribute="topMargin" constant="20" id="olG-M9-vpC"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="mm8-qa-3nu" secondAttribute="trailing" constant="-16" id="rgD-so-SBN"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="y09-RB-8Uc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-456" y="294"/>
+        </scene>
         <!--Main View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
@@ -60,7 +148,20 @@
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UWF-Tj-ib2">
                                 <rect key="frame" x="0.0" y="20" width="600" height="44"/>
                                 <items>
-                                    <navigationItem title="Title" id="eAf-xc-DOs"/>
+                                    <navigationItem title="Title" id="eAf-xc-DOs">
+                                        <barButtonItem key="leftBarButtonItem" image="userSetting" id="Ajd-vy-ph4">
+                                            <color key="tintColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            <connections>
+                                                <segue destination="PpR-Xo-bgH" kind="presentation" id="9z6-tv-GW7"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="wEK-tT-yFw">
+                                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <connections>
+                                                <segue destination="dsF-rr-8Jj" kind="presentation" id="NZl-LC-PvN"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
                                 </items>
                             </navigationBar>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="英文儿歌" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="US1-9B-X1n">
@@ -165,6 +266,57 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="yVp-Cc-oPs">
+            <objects>
+                <viewController id="dsF-rr-8Jj" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="QOH-Wh-j7x"/>
+                        <viewControllerLayoutGuide type="bottom" id="SMK-vi-SzO"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="X7m-JS-qL7">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="76c-MH-aZ4">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="20"/>
+                                <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="7JJ-TU-OOj"/>
+                                </constraints>
+                            </view>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eNi-gX-BnT">
+                                <rect key="frame" x="0.0" y="20" width="600" height="44"/>
+                                <items>
+                                    <navigationItem title="列表" id="3Mn-Ob-3Gn">
+                                        <barButtonItem key="rightBarButtonItem" title="完成" id="Nhi-bd-Cfy"/>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="jBT-UH-L8j">
+                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="eNi-gX-BnT" firstAttribute="top" secondItem="QOH-Wh-j7x" secondAttribute="bottom" id="AZl-s1-jAd"/>
+                            <constraint firstItem="76c-MH-aZ4" firstAttribute="leading" secondItem="X7m-JS-qL7" secondAttribute="leadingMargin" constant="-16" id="CXX-iu-vML"/>
+                            <constraint firstItem="jBT-UH-L8j" firstAttribute="top" secondItem="eNi-gX-BnT" secondAttribute="bottom" id="H3Q-YA-jm9"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="76c-MH-aZ4" secondAttribute="trailing" constant="-16" id="Jpp-dh-0Kb"/>
+                            <constraint firstItem="SMK-vi-SzO" firstAttribute="top" secondItem="jBT-UH-L8j" secondAttribute="bottom" id="PcI-Cw-210"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="jBT-UH-L8j" secondAttribute="trailing" constant="-16" id="Vmg-qb-ODM"/>
+                            <constraint firstItem="eNi-gX-BnT" firstAttribute="leading" secondItem="X7m-JS-qL7" secondAttribute="leadingMargin" constant="-16" id="dQA-pM-Djm"/>
+                            <constraint firstItem="76c-MH-aZ4" firstAttribute="top" secondItem="X7m-JS-qL7" secondAttribute="topMargin" id="j5L-DA-O7v"/>
+                            <constraint firstItem="jBT-UH-L8j" firstAttribute="leading" secondItem="X7m-JS-qL7" secondAttribute="leadingMargin" constant="-16" id="mjV-7H-6cJ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="eNi-gX-BnT" secondAttribute="trailing" constant="-16" id="pPC-cD-TzM"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VDs-1C-Q8w" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1239" y="294"/>
+        </scene>
     </scenes>
     <resources>
         <image name="bottomGradient" width="1242" height="423"/>
@@ -173,5 +325,6 @@
         <image name="pauseButton" width="200" height="200"/>
         <image name="pauseButton_active" width="200" height="200"/>
         <image name="topGradient" width="1242" height="423"/>
+        <image name="userSetting" width="22" height="22"/>
     </resources>
 </document>
