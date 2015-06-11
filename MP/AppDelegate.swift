@@ -24,9 +24,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
     var currentSceneIndex : Int = 0
     
     var stateAvtive : Bool = true
+    
+    var networkServer : NetworkService!
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool
     {
+        //set network server
+        networkServer = NetworkService(domain: "localhost", port: "3000")
+        
+        //set local server
         server = Server()
         server.delegate = self
         
