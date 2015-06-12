@@ -61,21 +61,24 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0ma-7k-kOi">
-                                <rect key="frame" x="16" y="105" width="97" height="30"/>
+                                <rect key="frame" x="16" y="105" width="450" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lLI-i8-3WN">
-                                <rect key="frame" x="16" y="166" width="97" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <datePicker contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="oLg-NN-E8v">
+                            <datePicker contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="oLg-NN-E8v">
                                 <rect key="frame" x="0.0" y="228" width="600" height="162"/>
                                 <date key="date" timeIntervalSinceReferenceDate="455737008.85861403">
                                     <!--2015-06-11 17:36:48 +0000-->
                                 </date>
+                                <locale key="locale" localeIdentifier="zh_CN"/>
                             </datePicker>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Owp-vI-QGg">
+                                <rect key="frame" x="16" y="172" width="123" height="29"/>
+                                <segments>
+                                    <segment title="男孩"/>
+                                    <segment title="女孩"/>
+                                </segments>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -89,6 +92,11 @@
                             <constraint firstAttribute="trailingMargin" secondItem="mm8-qa-3nu" secondAttribute="trailing" constant="-16" id="rgD-so-SBN"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="childBirthdayDatePicker" destination="oLg-NN-E8v" id="lsQ-pK-2yz"/>
+                        <outlet property="childNameTextField" destination="0ma-7k-kOi" id="9Qt-QP-qhZ"/>
+                        <outlet property="childSexualitySegmentedControl" destination="Owp-vI-QGg" id="L7o-Na-atb"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y09-RB-8Uc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
