@@ -8,3 +8,5 @@ MP.xcodeproj/xcuserdata/KYL.xcuserdatad/xcschemes/MP.xcscheme
 MP.xcodeproj/xcuserdata/KYL.xcuserdatad/xcschemes/xcschememanagement.plist
 
 Pods
+
+*.xcbkptlist

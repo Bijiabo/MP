@@ -71,7 +71,6 @@ class RemoteCommandCenter : UIResponder {
     
     internal func previousTrackCommand (e: MPRemoteCommandEvent!) -> MPRemoteCommandHandlerStatus
     {
-        self.delegate.refreshPlayerAndView(switchToNext: true)
         
         return MPRemoteCommandHandlerStatus.Success
     }

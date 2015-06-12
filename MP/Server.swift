@@ -41,10 +41,39 @@ class Server {
     
     init()
     {
-        //获取播放列表数据
-        playlist = dataLoader(dataFileName : "playlist.json" , pathInBundle : "resource/data").data
+        setData(dataFileName : "playlist.json" )
         
-        //获取当前默认场景
+        initScene()
+    }
+    
+    init(fileName : String)
+    {
+        setData(dataFileName : fileName )
+        
+        initScene()
+    }
+    
+    init(JSONData data: JSON)
+    {
+        setData(data: data)
+        
+        initScene()
+    }
+    
+    //初始化播放列表数据
+    func setData(dataFileName fileName : String ) -> Void
+    {
+        playlist = dataLoader(dataFileName : fileName , pathInBundle : "resource/data").data
+    }
+    
+    func setData(#data : JSON) -> Void
+    {
+        playlist = data
+    }
+    
+    //初始化当前默认场景
+    func initScene() -> Void
+    {
         for (key : String , subJson : JSON) in playlist
         {
             currentScene = subJson["name"].stringValue

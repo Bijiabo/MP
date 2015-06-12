@@ -22,34 +22,48 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
     var networkServer : NetworkService!
     
     var stateAvtive : Bool = true
+    
+    func initServer () -> Void
+    {
+        //set local server
+        server = Server()
+        server.delegate = self
+    }
+    
+    func initRootViewController() -> Void
+    {
+        //set root VC
+        let rootViewController : mainViewController = window?.rootViewController as! mainViewController
+        rootViewController.delegate = self
+    }
 
+    func initRemoteCommandCenter() -> Void
+    {
+        //set MPRemoteCommandCenter
+        let remoteCommandCenter : RemoteCommandCenter = RemoteCommandCenter()
+        remoteCommandCenter.delegate = self
+        remoteCommandCenter.initMPRemoteCommandCenter()
+    }
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool
     {
         //set network server
         networkServer = NetworkService(domain: "localhost", port: "3000")
         
-        //set local server
-        server = Server()
-        server.delegate = self
+        initServer()
         
         //copy media files to Cache directory
         CopyBundleFilesToCache()
         
-        //set root VC
-        let rootViewController : mainViewController = window?.rootViewController as! mainViewController
-        rootViewController.delegate = self
+        initRootViewController()
         
-        //初始化Player 及 主界面
         initPlayerAndView()
         
-        //set MPRemoteCommandCenter
-        let remoteCommandCenter : RemoteCommandCenter = RemoteCommandCenter()
-        remoteCommandCenter.delegate = self
-        remoteCommandCenter.initMPRemoteCommandCenter()
+        initRemoteCommandCenter()
         
         initAVAudioSession()
         
-        updateMPNowPlayingInfoCenter()
+        initMPNowPlayingInfoCenter()
         
         return true
     }
@@ -112,7 +126,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
         AVAudioSession.sharedInstance().setActive(true, error: nil)
     }
     
-    //更新MPRemoteCommandCenter视图
+    //初始化、更新MPRemoteCommandCenter视图
+    func initMPNowPlayingInfoCenter () -> Void
+    {
+        updateMPNowPlayingInfoCenter()
+    }
+    
     func updateMPNowPlayingInfoCenter () -> Void
     {
         let currentPlayItemContent : Dictionary<String,String> = server.currentPlayContent()
@@ -155,6 +174,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
         player.delegate = self
     }
     
+    //初始化Player 及 主界面
     func initPlayerAndView () -> Void
     {
         initPlayer()
