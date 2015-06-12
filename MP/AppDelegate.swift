@@ -100,7 +100,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
 
     func audioPlayerDidFinishPlaying(player: AVAudioPlayer!, successfully flag: Bool) {
         
-        refreshPlayerAndView(switchToNext: true)
+        var switchToNext : Bool = true
+        
+        if server.playOnceAgain
+        {
+            switchToNext = false
+            
+            RemoteCommandCenter().playAgainCommandActive(active: false)
+            server.playOnceAgain = false
+        }
+        
+        refreshPlayerAndView(switchToNext: switchToNext)
         
         setPayerPlayingStatus(play: true)
     }
@@ -112,7 +122,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
         AVAudioSession.sharedInstance().setActive(true, error: nil)
     }
     
-    
+    //更新MPRemoteCommandCenter视图
     func updateMPNowPlayingInfoCenter () -> Void
     {
         
@@ -128,10 +138,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
             //MPMediaItemPropertyAlbumTitle: "磨耳朵",
             MPMediaItemPropertyTitle: currentPlayItemName,
             MPMediaItemPropertyArtist:  "\(_MPMediaItemPropertyArtist)磨耳朵",
-            MPMediaItemPropertyArtwork: MPMediaItemArtwork(image:  LockScreenView(imageName: server.currentScene, title: "\(server.currentScene)磨耳朵", description: currentPlayItemName).image )
+            MPMediaItemPropertyArtwork: MPMediaItemArtwork(image:  LockScreenView(imageName: server.currentScene, title: "\(server.currentScene)磨耳朵", description: currentPlayItemName).image ),
+            MPNowPlayingInfoPropertyElapsedPlaybackTime : player.currentTime,
+            MPNowPlayingInfoPropertyPlaybackRate : 1.0,
+            MPMediaItemPropertyPlaybackDuration : player.duration
         ]
     }   
     
+    //初始化player,设定当前场景相关音频内容
     func initPlayer () -> Void
     {
         let playContent = server.currentPlayContent()
@@ -141,14 +155,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
         let playFileName : String = playContent["url"]!
         
         let playURL : NSURL = NSURL(fileURLWithPath: "\(cachePath)/resource/media/\(playFileName)")!
-        
-        let playerData : NSData? = NSData(contentsOfURL: playURL )
-        
+
+        //若音频文件不存在，则切换至下一首
+        if NSFileManager.defaultManager().fileExistsAtPath(playURL.relativePath!) == false
+        {
+            server.currentIndexOfScene++
+            initPlayer()
+            
+            return
+        }
+
         var error : NSError?
         
         player = audioPlayer(contentsOfURL: playURL, error: &error)
         
         player.prepareToPlay()
+        
+        //测试，仅播放最后15'
+        player.currentTime = player.duration - 15
         
         player.delegate = self
     }
@@ -193,6 +217,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
         updateMPNowPlayingInfoCenter()
     }
     
+    
+    //刷新player和相关视觉呈现view
     func refreshPlayerAndView(#switchToNext : Bool)
     {
         if switchToNext
@@ -204,6 +230,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
         refreshView()
     }
     
+    //切换场景
     func switchScene (#targetScene : String) -> Void
     {
         if targetScene != server.currentScene
@@ -223,6 +250,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
         
         //println(error)
     }
+    
+    func playOnceAgain (isAgain : Bool = true) -> Void
+    {
+        println("playOnceAgain!!!!!!!!!!!!!!!!!!!!!!!")
+        
+        server.playOnceAgain = isAgain
+    }
+    
+    
     /*
     func audioPlayerBeginInterruption(player: AVAudioPlayer!) {
         println("audioPlayerBeginInterruption")

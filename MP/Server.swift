@@ -16,8 +16,6 @@
 
 import Foundation
 
-
-
 class Server {
     
     var delegate : AppDelegate!
@@ -26,6 +24,10 @@ class Server {
     var playlist : JSON = JSON([])
     var currentScene : String = ""
     
+    //当前音频是否再次播放一遍
+    var playOnceAgain : Bool = false
+    
+    //当前场景音频播放index
     var currentIndexOfScene : Int = 0
     {
         didSet
@@ -39,8 +41,10 @@ class Server {
     
     init()
     {
+        //获取播放列表数据
         playlist = dataLoader(dataFileName : "playlist.json" , pathInBundle : "resource/data").data
         
+        //获取当前默认场景
         for (key : String , subJson : JSON) in playlist
         {
             currentScene = subJson["name"].stringValue
@@ -49,6 +53,7 @@ class Server {
         }
     }
     
+    //获取当前场景播放列表
     func getCurrentScenePlaylist() -> [Dictionary<String,String>]
     {
         var list : [Dictionary<String,String>] = [Dictionary<String,String>]()
@@ -78,24 +83,26 @@ class Server {
     {
         let index : Int = currentIndexOfScene + 1
         
-        return _getPlayContent(index)
+        return _currentScenePlayContentForIndex(index)
     }
     
+    //当前播放音频相关数据
     func currentPlayContent () -> Dictionary<String,String>
     {
         let index : Int = currentIndexOfScene
         
-        return _getPlayContent(index)
+        return _currentScenePlayContentForIndex(index)
     }
     
     func prevPlayContent () -> Dictionary<String,String>
     {
         let index : Int = currentIndexOfScene - 1
         
-        return _getPlayContent(index)
+        return _currentScenePlayContentForIndex(index)
     }
     
-    private func _getPlayContent(index : Int) -> Dictionary<String,String>
+    //获取当前场景下指定index的音频相关数据
+    private func _currentScenePlayContentForIndex(index : Int) -> Dictionary<String,String>
     {
         var playContentIndex : Int = index
         
@@ -116,7 +123,7 @@ class Server {
         return playContent
     }
     
-    
+    //场景列表
     func sceneList () -> Array<String>
     {
         var sceneArray : Array<String> = Array<String>()

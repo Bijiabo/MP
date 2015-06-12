@@ -18,9 +18,9 @@ class mainViewController: UIViewController, UITabBarDelegate
     @IBOutlet var audioTag: UILabel!
     @IBOutlet var audioName: UILabel!
     
-    
     var delegate : AppDelegate!
     
+    //model，初始化此viewController或需要刷新view时传入（一般由AppDelegate传入），然后执行刷新view动作
     var model : Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
     {
         didSet
@@ -146,6 +146,7 @@ class mainViewController: UIViewController, UITabBarDelegate
       button!.setImage(UIImage(named: "\(playPauseButtonImageName)_active"), forState: UIControlState.Selected)
     }
     
+    //用户点击tabBar切换场景
     func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem!)
     {
         let selectedTabBarItem : UITabBarItem = item as UITabBarItem
@@ -193,11 +194,13 @@ class mainViewController: UIViewController, UITabBarDelegate
 
     }
     
+    //设定status bar 颜色
     override func preferredStatusBarStyle() -> UIStatusBarStyle
     {
         return UIStatusBarStyle.LightContent
     }
     
+    //用户点击「孩子不喜欢」按钮
     @IBAction func tapDislikeButton(sender: AnyObject) {
         delegate.refreshPlayerAndView(switchToNext: true)
     }

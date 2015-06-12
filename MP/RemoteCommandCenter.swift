@@ -104,6 +104,25 @@ class RemoteCommandCenter : UIResponder {
     
     internal func playAgain (e: MPRemoteCommandEvent!) -> MPRemoteCommandHandlerStatus
     {
+        let ifAgainNow : Bool = MPRemoteCommandCenter.sharedCommandCenter().bookmarkCommand.active
+        
+        if !ifAgainNow
+        {
+            MPRemoteCommandCenter.sharedCommandCenter().bookmarkCommand.localizedTitle = "🎵 取消再放一遍"
+        }
+        else
+        {
+            MPRemoteCommandCenter.sharedCommandCenter().bookmarkCommand.localizedTitle = "🎵 再放一遍"
+        }
+        
+        self.delegate.playOnceAgain(isAgain: !ifAgainNow)
+        playAgainCommandActive(active: !ifAgainNow)
+        
         return MPRemoteCommandHandlerStatus.Success
+    }
+    
+    internal func playAgainCommandActive(#active : Bool) -> Void
+    {
+        MPRemoteCommandCenter.sharedCommandCenter().bookmarkCommand.active = active
     }
 }
