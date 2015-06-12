@@ -108,7 +108,6 @@ class MPTests: XCTestCase {
     {
         let delegate : AppDelegate = AppDelegate()
         delegate.server = Server()
-        delegate.server.delegate = delegate
         
         let remoteCommandCenter : RemoteCommandCenter = RemoteCommandCenter()
         remoteCommandCenter.delegate = delegate

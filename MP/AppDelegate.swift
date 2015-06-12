@@ -27,7 +27,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
     {
         //set local server
         server = Server()
-        server.delegate = self
     }
     
     func initRootViewController() -> Void
@@ -122,7 +121,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
     private func initAVAudioSession () -> Void
     {
         AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, error: nil)
-        
         AVAudioSession.sharedInstance().setActive(true, error: nil)
     }
     
@@ -246,6 +244,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
     func playOnceAgain (isAgain : Bool = true) -> Void
     {
         server.playOnceAgain = isAgain
+    }
+    
+    func childDislikeCurrentAudio () -> Void
+    {
+        refreshPlayerAndView(switchToNext: true)
     }
 }
 

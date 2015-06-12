@@ -96,7 +96,7 @@ class RemoteCommandCenter : UIResponder {
         MPRemoteCommandCenter.sharedCommandCenter().likeCommand.active = false
         MPRemoteCommandCenter.sharedCommandCenter().dislikeCommand.active = false
         
-        self.delegate.refreshPlayerAndView(switchToNext: true)
+        self.delegate.childDislikeCurrentAudio()
         
         return MPRemoteCommandHandlerStatus.Success
     }
