@@ -42,6 +42,8 @@
 		A1FE108E1B2A088E00EE2B73 /* playlistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FE108C1B2A088E00EE2B73 /* playlistViewController.swift */; };
 		A1FE10901B2A0A0D00EE2B73 /* playlistTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FE108F1B2A0A0D00EE2B73 /* playlistTableViewCell.swift */; };
 		A1FE10911B2A0A0D00EE2B73 /* playlistTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FE108F1B2A0A0D00EE2B73 /* playlistTableViewCell.swift */; };
+		A1FE10961B2B35C700EE2B73 /* NowPlayingInfoCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FE10951B2B35C700EE2B73 /* NowPlayingInfoCenter.swift */; };
+		A1FE10971B2B35C700EE2B73 /* NowPlayingInfoCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FE10951B2B35C700EE2B73 /* NowPlayingInfoCenter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +85,7 @@
 		A1FE10821B29FEFC00EE2B73 /* userInformationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = userInformationViewController.swift; sourceTree = "<group>"; };
 		A1FE108C1B2A088E00EE2B73 /* playlistViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = playlistViewController.swift; sourceTree = "<group>"; };
 		A1FE108F1B2A0A0D00EE2B73 /* playlistTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = playlistTableViewCell.swift; sourceTree = "<group>"; };
+		A1FE10951B2B35C700EE2B73 /* NowPlayingInfoCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NowPlayingInfoCenter.swift; sourceTree = "<group>"; };
 		D6D52C8D4D36BCAA866B4883 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -153,6 +156,7 @@
 				839BC78B1B1CAE8900075C7C /* Supporting Files */,
 				A19380631B25E682003F9AFA /* RemoteCommandCenter.swift */,
 				A15EA3151B27F05F0053AFCD /* LockScreenView.swift */,
+				A1FE10951B2B35C700EE2B73 /* NowPlayingInfoCenter.swift */,
 			);
 			path = MP;
 			sourceTree = "<group>";
@@ -418,6 +422,7 @@
 				A19380611B25E2EC003F9AFA /* audioPlayer.swift in Sources */,
 				A17CB13F1B1D4A830085DD0E /* Server.swift in Sources */,
 				A15EA3161B27F05F0053AFCD /* LockScreenView.swift in Sources */,
+				A1FE10961B2B35C700EE2B73 /* NowPlayingInfoCenter.swift in Sources */,
 				A1FE10901B2A0A0D00EE2B73 /* playlistTableViewCell.swift in Sources */,
 				A11A39B41B2432D3001D7682 /* CopyBundleFilesToCache.swift in Sources */,
 				839BC7901B1CAE8900075C7C /* mainViewController.swift in Sources */,
@@ -443,6 +448,7 @@
 				A17CB1481B20340D0085DD0E /* Server.swift in Sources */,
 				A1FE10911B2A0A0D00EE2B73 /* playlistTableViewCell.swift in Sources */,
 				A17CB1471B202FC50085DD0E /* swiftyJSON.swift in Sources */,
+				A1FE10971B2B35C700EE2B73 /* NowPlayingInfoCenter.swift in Sources */,
 				A15EA3171B27F05F0053AFCD /* LockScreenView.swift in Sources */,
 				A17CB1461B202F360085DD0E /* dataLoader.swift in Sources */,
 				839BC7A41B1CAE8A00075C7C /* MPTests.swift in Sources */,

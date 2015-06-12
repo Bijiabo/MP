@@ -58,34 +58,69 @@ class MPTests: XCTestCase {
         self.measureBlock() {
             
             let server = Server()
+            let player : AVAudioPlayer!
             
             let playContent = server.currentPlayContent()
             
             let cachePath : String = NSSearchPathForDirectoriesInDomains(.CachesDirectory , .UserDomainMask, true)[0] as! String
             
             let playFileName : String = playContent["url"]!
+            let playURL : NSURL = NSURL(fileURLWithPath: "\(cachePath)/resource/media/\(playFileName)")!
             
-            let playURL : NSURL = NSURL(fileURLWithPath: "\(cachePath)/media/\(playFileName)")!
+            //若音频文件不存在，则切换至下一首
+            if NSFileManager.defaultManager().fileExistsAtPath(playURL.relativePath!) == false
+            {
+                server.currentIndexOfScene++
+                return
+            }
             
-            let player : AVAudioPlayer = AVAudioPlayer(contentsOfURL: playURL, error: nil)
+            var error : NSError?
             
+            player = audioPlayer(contentsOfURL: playURL, error: &error)
+            
+            player.prepareToPlay()
         }
     }
     
     
     //test mainViewController
-    /*
+
     func testInitTabBar()
     {
         let tabbar : UITabBar = UITabBar()
         
+        var model : Dictionary<String,AnyObject> = Server().currentPlayContent()
+        model["playing"] = false
+        model["currentScene"] = 0
+        model["scenelist"] = ["午后","睡前","玩耍","起床"]
+        
         let vc : mainViewController = mainViewController()
-        vc.server = Server()
+        vc.tabBar = tabbar
+        vc.model = model
         
         vc._refreshTabBar(tabbar: tabbar, scenelist: ["午后","睡前","玩耍","起床"], currentScene: "玩耍")
         
-        
-        XCTAssert(tabbar.items?.count > 0  , "mainViewController tabBar init func Pass.")
+        XCTAssert(tabbar.items?.count == 4  , "mainViewController tabBar init func Pass.")
     }
-    */
+
+    //测试 MPRemoteCommandCenter 再放一遍
+    func testMPRemoteCommandCenter_playOnceAgain()
+    {
+        let delegate : AppDelegate = AppDelegate()
+        delegate.server = Server()
+        delegate.server.delegate = delegate
+        
+        let remoteCommandCenter : RemoteCommandCenter = RemoteCommandCenter()
+        remoteCommandCenter.delegate = delegate
+        remoteCommandCenter.initMPRemoteCommandCenter()
+        
+        remoteCommandCenter.triggerPlayAgainCommand(true)
+        let successForPlayAgain : Bool =  delegate.server.playOnceAgain==true && MPRemoteCommandCenter.sharedCommandCenter().bookmarkCommand.localizedTitle == "🎵 取消再放一遍"
+        
+        remoteCommandCenter.triggerPlayAgainCommand(false)
+        let successForCancelPlayAgain : Bool =  delegate.server.playOnceAgain==false && MPRemoteCommandCenter.sharedCommandCenter().bookmarkCommand.localizedTitle == "🎵 再放一遍"
+        
+        XCTAssert(successForPlayAgain && successForCancelPlayAgain   , "mainViewController tabBar init func Pass.")
+    }
+    
 }

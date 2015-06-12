@@ -18,14 +18,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
     var window: UIWindow?
     
     var player : audioPlayer!
-
     var server : Server!
-    
-    var currentSceneIndex : Int = 0
+    var networkServer : NetworkService!
     
     var stateAvtive : Bool = true
-    
-    var networkServer : NetworkService!
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool
     {
@@ -41,26 +37,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
         
         //set root VC
         let rootViewController : mainViewController = window?.rootViewController as! mainViewController
-        
         rootViewController.delegate = self
         
+        //初始化Player 及 主界面
         initPlayerAndView()
         
         //set MPRemoteCommandCenter
         let remoteCommandCenter : RemoteCommandCenter = RemoteCommandCenter()
         remoteCommandCenter.delegate = self
-        remoteCommandCenter._initMPRemoteCommandCenter()
+        remoteCommandCenter.initMPRemoteCommandCenter()
         
-        _initAVAudioSession()
+        initAVAudioSession()
         
         updateMPNowPlayingInfoCenter()
         
         return true
-    }
-
-    func applicationWillResignActive(application: UIApplication) {
-        // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-        // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
     }
 
     func applicationDidEnterBackground(application: UIApplication) {
@@ -75,9 +66,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
         stateAvtive = true
     }
 
-    func applicationWillTerminate(application: UIApplication) {
-        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    }
     
     internal func togglePlayPause () -> Void
     {
@@ -106,16 +94,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
         {
             switchToNext = false
             
-            RemoteCommandCenter().playAgainCommandActive(active: false)
+            //取消再放一遍状态
+            RemoteCommandCenter().refreshPlayAgainCommandView(active: false)
             server.playOnceAgain = false
         }
+        
         
         refreshPlayerAndView(switchToNext: switchToNext)
         
         setPayerPlayingStatus(play: true)
     }
     
-    private func _initAVAudioSession () -> Void
+    private func initAVAudioSession () -> Void
     {
         AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, error: nil)
         
@@ -125,24 +115,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
     //更新MPRemoteCommandCenter视图
     func updateMPNowPlayingInfoCenter () -> Void
     {
-        
         let currentPlayItemContent : Dictionary<String,String> = server.currentPlayContent()
         
-        let currentPlayItemName : String = currentPlayItemContent["name"]!
-        let _MPMediaItemPropertyArtist: String = server.currentScene
+        let audioName : String = currentPlayItemContent["name"]!
         
-        // LOCK/CONTROLCENTER: Title / AlbumTitle - Artist
-        // REMOTE MENU: Title / Artist
-        MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo = [
-            MPMediaItemPropertyAlbumArtist: "磨耳朵", // not displayed
-            //MPMediaItemPropertyAlbumTitle: "磨耳朵",
-            MPMediaItemPropertyTitle: currentPlayItemName,
-            MPMediaItemPropertyArtist:  "\(_MPMediaItemPropertyArtist)磨耳朵",
-            MPMediaItemPropertyArtwork: MPMediaItemArtwork(image:  LockScreenView(imageName: server.currentScene, title: "\(server.currentScene)磨耳朵", description: currentPlayItemName).image ),
-            MPNowPlayingInfoPropertyElapsedPlaybackTime : player.currentTime,
-            MPNowPlayingInfoPropertyPlaybackRate : 1.0,
-            MPMediaItemPropertyPlaybackDuration : player.duration
-        ]
+        NowPlayingInfoCenter(AlbumArtist: "磨耳朵", currentPlayItemName: audioName,imageName : server.currentScene, Artist: "\(server.currentScene)磨耳朵", player: player)
+        
     }   
     
     //初始化player,设定当前场景相关音频内容
@@ -197,24 +175,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
     }
 
     
-    func refreshView()
+    func refreshView() -> Void
     {
-        //refresh mainVC
-        if stateAvtive
-        {
-            if let rootViewController : mainViewController = window?.rootViewController as? mainViewController
-            {
-                var model : Dictionary<String,AnyObject> = server.currentPlayContent()
-                model["playing"] = player.playing
-                model["currentScene"] = server.currentScene
-                model["scenelist"] = server.sceneList()
-                
-                rootViewController.model = model
-            }
-        }
-        
         //refresh  MPInfo
         updateMPNowPlayingInfoCenter()
+        
+        //refresh mainVC
+        if !stateAvtive {return }
+        
+        //若为主界面，刷新界面
+        if let rootViewController : mainViewController = window?.rootViewController as? mainViewController
+        {
+            var model : Dictionary<String,AnyObject> = server.currentPlayContent()
+            model["playing"] = player.playing
+            model["currentScene"] = server.currentScene
+            model["scenelist"] = server.sceneList()
+            
+            rootViewController.model = model
+        }
     }
     
     
@@ -245,24 +223,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
         player.play()
     }
     
-    func audioPlayerDecodeErrorDidOccur(player: AVAudioPlayer!, error: NSError!) {
-        //println( "audioPlayerDecodeErrorDidOccur" )
-        
-        //println(error)
-    }
-    
     func playOnceAgain (isAgain : Bool = true) -> Void
     {
-        println("playOnceAgain!!!!!!!!!!!!!!!!!!!!!!!")
-        
         server.playOnceAgain = isAgain
     }
-    
-    
-    /*
-    func audioPlayerBeginInterruption(player: AVAudioPlayer!) {
-        println("audioPlayerBeginInterruption")
-    }
-    */
 }
 
