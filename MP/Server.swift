@@ -33,7 +33,7 @@ class Server {
     
     init()
     {
-        setData(dataFileName : "playlist.json" )
+        setData(dataFileName : "0.json" )
         
         initScene()
     }
@@ -61,6 +61,13 @@ class Server {
     func setData(#data : JSON) -> Void
     {
         playlist = data
+    }
+    
+    func setDataAndRefreshServer(dataFileName fileName : String ) -> Void
+    {
+        setData(dataFileName: fileName)
+        
+        initScene()
     }
     
     //初始化当前默认场景

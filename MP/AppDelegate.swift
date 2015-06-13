@@ -24,6 +24,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
     var stateAvtive : Bool = true
     var userHadViewSettings : Bool = false
     
+    //MARK:
+    //MARK: 📍  init functions
+
     func initServer () -> Void
     {
         //set local server
@@ -53,6 +56,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
         networkServer = NetworkService(domain: serverDomain, port: serverPort)
     }
     
+    //MARK:
+    //MARK: 🅰️  application functions
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool
     {
         initNetworkServer()
@@ -72,6 +78,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
         
         initMPNowPlayingInfoCenter()
         
+        initObserver()
+        
         return true
     }
 
@@ -87,6 +95,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
         stateAvtive = true
     }
 
+    //MARK:
+    //MARK: 🎵  player functions
     
     internal func togglePlayPause () -> Void
     {
@@ -132,22 +142,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
         AVAudioSession.sharedInstance().setActive(true, error: nil)
     }
     
-    //初始化、更新MPRemoteCommandCenter视图
-    func initMPNowPlayingInfoCenter () -> Void
-    {
-        updateMPNowPlayingInfoCenter()
-    }
-    
-    func updateMPNowPlayingInfoCenter () -> Void
-    {
-        let currentPlayItemContent : Dictionary<String,String> = server.currentPlayContent()
-        
-        let audioName : String = currentPlayItemContent["name"]!
-        
-        NowPlayingInfoCenter(AlbumArtist: "磨耳朵", currentPlayItemName: audioName,imageName : server.currentScene, Artist: "\(server.currentScene)磨耳朵", player: player)
-        
-    }   
-    
     //初始化player,设定当前场景相关音频内容
     func initPlayer () -> Void
     {
@@ -174,19 +168,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
         
         player.prepareToPlay()
         
-        //测试，仅播放最后15'
-        player.currentTime = player.duration - 15
-        
+        #if DEBUG_VERSION
+            println("DEBUG_VERSION")
+            //测试，仅播放最后15'
+            player.currentTime = player.duration - 15
+        #endif
+            
         player.delegate = self
     }
     
-    //初始化Player 及 主界面
-    func initPlayerAndView () -> Void
-    {
-        initPlayer()
-        
-        refreshView()
-    }
     
     func refreshPlayer() -> Void
     {
@@ -199,7 +189,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
             player.play()
         }
     }
-
+    
+    //MARK:
+    //MARK: 🔥  view更新相关方法
+    
+    //初始化、更新MPRemoteCommandCenter视图
+    func initMPNowPlayingInfoCenter () -> Void
+    {
+        updateMPNowPlayingInfoCenter()
+    }
+    
+    func updateMPNowPlayingInfoCenter () -> Void
+    {
+        let currentPlayItemContent : Dictionary<String,String> = server.currentPlayContent()
+        
+        let audioName : String = currentPlayItemContent["name"]!
+        
+        NowPlayingInfoCenter(AlbumArtist: "磨耳朵", currentPlayItemName: audioName,imageName : server.currentScene, Artist: "\(server.currentScene)磨耳朵", player: player)
+        
+    }
+    
+    func initPlayerAndView () -> Void
+    {
+        initPlayer()
+        
+        refreshView()
+    }
     
     func refreshView() -> Void
     {
@@ -233,6 +248,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
         refreshPlayer()
         refreshView()
     }
+    
+    //MARK:
+    //MARK: 💪  delegate动作接口
     
     //切换场景
     func switchScene (#targetScene : String) -> Void
@@ -309,6 +327,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
             
             println(error)
         })
+    }
+    
+    //MARK: 
+    //MARK: 👀  observer
+    func initObserver() -> Void
+    {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("childAgeGroupChanged:"), name: "childAgeGroupChanged", object: nil)
+    }
+    
+    func childAgeGroupChanged(notification : NSNotification) -> Void
+    {
+        println("childAgeGroupChanged")
+        if let ageGroup : Int = (notification.object as! [String:Int])["age"]
+        {
+            server.setDataAndRefreshServer(dataFileName: "\(ageGroup).json")
+            
+            refreshPlayerAndView(switchToNext: false)
+        }
+        
     }
 }
 

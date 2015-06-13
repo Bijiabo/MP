@@ -27,10 +27,15 @@ class LockScreenView {
         view.backgroundColor = frameColor
         
         //设定照片
-        let imageURL : NSURL = NSBundle.mainBundle().URLForResource(imageName, withExtension: "jpg", subdirectory: "resource/image")!
-        let imageData : NSData = NSData(contentsOfURL: imageURL)!
+        var backgroundImage : UIImage = UIImage()
         
-        var backgroundImage : UIImage = UIImage(data: imageData)!
+        if let imageURL : NSURL = NSBundle.mainBundle().URLForResource(imageName, withExtension: "jpg", subdirectory: "resource/image")
+        {
+            let imageData : NSData = NSData(contentsOfURL: imageURL)!
+            
+            backgroundImage = UIImage(data: imageData)!
+        }
+        
         let backgroundView : UIImageView = UIImageView(frame: CGRectMake(20, 20, 560, 560))
         backgroundView.image = backgroundImage
         backgroundView.contentMode = UIViewContentMode.ScaleAspectFill

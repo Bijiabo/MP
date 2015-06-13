@@ -22,6 +22,10 @@ class userInformationViewController: UIViewController {
         super.viewDidLoad()
         
         delegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         
         initView()
     }
@@ -67,18 +71,45 @@ class userInformationViewController: UIViewController {
         }
     }
     
+    func checkChildAgeGroupChanged () -> Bool
+    {
+        //获取先前孩子年龄设置
+        let previousChildBirthDay : NSDate = NSUserDefaults.standardUserDefaults().objectForKey("childBirthday") as! NSDate
+        let previouseChildAge : (age : Int , month : Int) = AgeCalculator(birth: previousChildBirthDay).age
+        
+        //获取现在孩子年龄设置
+        let presentChildBirthDay : NSDate = childBirthdayDatePicker.date
+        let presentChildAge : (age : Int , month : Int) = AgeCalculator(birth: presentChildBirthDay).age
+        
+        return previouseChildAge.age != presentChildAge.age ? true : false
+    }
+    
 
     @IBAction func tapSaveButton(sender: UIBarButtonItem) {
         
+        if checkChildAgeGroupChanged()
+        {
+            //若孩子年龄段改变，则发送通知
+            let presentChildBirthDay : NSDate = childBirthdayDatePicker.date
+            let presentChildAge : (age : Int , month : Int) = AgeCalculator(birth: presentChildBirthDay).age
+            
+            NSNotificationCenter.defaultCenter().postNotificationName("childAgeGroupChanged", object: ["age" : presentChildAge.age] as AnyObject)
+        }
+        
+        //若为新用户，注册
+        if NSUserDefaults.standardUserDefaults().objectForKey("childName") == nil
+        {
+            delegate.signup()
+        }
+        
+        //储存用户修改的数据
         NSUserDefaults.standardUserDefaults().setObject(childNameTextField.text, forKey: "childName")
         
         let childSexuality : String =  childSexualitySegmentedControl.titleForSegmentAtIndex(childSexualitySegmentedControl.selectedSegmentIndex)!
         NSUserDefaults.standardUserDefaults().setObject(childSexuality, forKey: "childSexuality")
-        
         NSUserDefaults.standardUserDefaults().setObject(childBirthdayDatePicker.date, forKey: "childBirthday")
         
-        delegate.signup()
-        
+        //关闭页面
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -86,6 +117,5 @@ class userInformationViewController: UIViewController {
         
         self.dismissViewControllerAnimated(true, completion: nil)
     }
-    
 
 }

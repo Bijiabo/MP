@@ -44,6 +44,8 @@
 		A1FE10911B2A0A0D00EE2B73 /* playlistTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FE108F1B2A0A0D00EE2B73 /* playlistTableViewCell.swift */; };
 		A1FE10961B2B35C700EE2B73 /* NowPlayingInfoCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FE10951B2B35C700EE2B73 /* NowPlayingInfoCenter.swift */; };
 		A1FE10971B2B35C700EE2B73 /* NowPlayingInfoCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FE10951B2B35C700EE2B73 /* NowPlayingInfoCenter.swift */; };
+		A1FE109E1B2C198B00EE2B73 /* AgeCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FE109D1B2C198B00EE2B73 /* AgeCalculator.swift */; };
+		A1FE109F1B2C198B00EE2B73 /* AgeCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FE109D1B2C198B00EE2B73 /* AgeCalculator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +88,7 @@
 		A1FE108C1B2A088E00EE2B73 /* playlistViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = playlistViewController.swift; sourceTree = "<group>"; };
 		A1FE108F1B2A0A0D00EE2B73 /* playlistTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = playlistTableViewCell.swift; sourceTree = "<group>"; };
 		A1FE10951B2B35C700EE2B73 /* NowPlayingInfoCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NowPlayingInfoCenter.swift; sourceTree = "<group>"; };
+		A1FE109D1B2C198B00EE2B73 /* AgeCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgeCalculator.swift; sourceTree = "<group>"; };
 		D6D52C8D4D36BCAA866B4883 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -211,6 +214,7 @@
 				A17CB1441B202F360085DD0E /* dataLoader.swift */,
 				A11A39B31B2432D3001D7682 /* CopyBundleFilesToCache.swift */,
 				A1D011921B297E2B0074A0A3 /* NetworkService.swift */,
+				A1FE109D1B2C198B00EE2B73 /* AgeCalculator.swift */,
 			);
 			name = lib;
 			sourceTree = "<group>";
@@ -418,6 +422,7 @@
 				A1FE10831B29FEFC00EE2B73 /* userInformationViewController.swift in Sources */,
 				A1FE108D1B2A088E00EE2B73 /* playlistViewController.swift in Sources */,
 				A1D011981B297E540074A0A3 /* bridge.m in Sources */,
+				A1FE109E1B2C198B00EE2B73 /* AgeCalculator.swift in Sources */,
 				A17CB1451B202F360085DD0E /* dataLoader.swift in Sources */,
 				A19380611B25E2EC003F9AFA /* audioPlayer.swift in Sources */,
 				A17CB13F1B1D4A830085DD0E /* Server.swift in Sources */,
@@ -442,6 +447,7 @@
 				A1D011A21B2982D70074A0A3 /* RemoteCommandCenter.swift in Sources */,
 				A19380621B25E38F003F9AFA /* audioPlayer.swift in Sources */,
 				A11A39B51B243670001D7682 /* CopyBundleFilesToCache.swift in Sources */,
+				A1FE109F1B2C198B00EE2B73 /* AgeCalculator.swift in Sources */,
 				A17CB1491B2045F20085DD0E /* mainViewController.swift in Sources */,
 				A1FE10841B29FEFC00EE2B73 /* userInformationViewController.swift in Sources */,
 				A1FE108E1B2A088E00EE2B73 /* playlistViewController.swift in Sources */,
@@ -575,6 +581,7 @@
 				INFOPLIST_FILE = MP/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "-DEBUG_VERSION";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "MP-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -592,6 +599,7 @@
 				INFOPLIST_FILE = MP/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "-RELEASE_VERSION";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "MP-Bridging-Header.h";
 			};
