@@ -31,7 +31,7 @@ class MPTests: XCTestCase {
         let server = Server()
         let nextPlayContent = server.nextPlayConent()
         
-        XCTAssert(nextPlayContent.count == 3, "nextPlayContent Pass")
+        XCTAssert(nextPlayContent.count == 4, "nextPlayContent Pass")
     }
     
     func testPrevPlayContent()
@@ -39,7 +39,7 @@ class MPTests: XCTestCase {
         let server = Server()
         let nextPlayContent = server.prevPlayContent()
         
-        XCTAssert(nextPlayContent.count == 3, "nextPlayContent Pass")
+        XCTAssert(nextPlayContent.count == 4, "nextPlayContent Pass")
     }
     
     func testGetScenelist()

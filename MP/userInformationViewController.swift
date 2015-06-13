@@ -14,9 +14,14 @@ class userInformationViewController: UIViewController {
     @IBOutlet var childSexualitySegmentedControl: UISegmentedControl!
     @IBOutlet var childBirthdayDatePicker: UIDatePicker!
     
+    @IBOutlet var cancelButton: UIBarButtonItem!
+    
+    var delegate : AppDelegate!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        delegate = UIApplication.sharedApplication().delegate as! AppDelegate
         
         initView()
     }
@@ -71,6 +76,8 @@ class userInformationViewController: UIViewController {
         NSUserDefaults.standardUserDefaults().setObject(childSexuality, forKey: "childSexuality")
         
         NSUserDefaults.standardUserDefaults().setObject(childBirthdayDatePicker.date, forKey: "childBirthday")
+        
+        delegate.signup()
         
         self.dismissViewControllerAnimated(true, completion: nil)
     }

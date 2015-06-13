@@ -11,6 +11,33 @@ import Foundation
 class CopyBundleFilesToCache {
     init()
     {
+        let isNewVersion : Bool = checkNewVersion()
+        
+        if isNewVersion
+        {
+            doCopy()
+        }
+    }
+    
+    func checkNewVersion () -> Bool
+    {
+        let oldVersion : Int = NSUserDefaults.standardUserDefaults().integerForKey("version")
+        
+        let version = NSBundle.mainBundle().objectForInfoDictionaryKey("version") as! Int
+        
+        if version > oldVersion
+        {
+            return true
+        }
+        else
+        {
+            return false
+        }
+        
+    }
+    
+    func doCopy() -> Void
+    {
         let cachePath : String = NSSearchPathForDirectoriesInDomains(.CachesDirectory , .UserDomainMask, true)[0] as! String
         
         let targetPath : String = cachePath + "/resource/"

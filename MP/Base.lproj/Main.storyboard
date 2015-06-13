@@ -9,7 +9,7 @@
         <!--User Information View Controller-->
         <scene sceneID="wcP-Vc-6Zs">
             <objects>
-                <viewController id="PpR-Xo-bgH" customClass="userInformationViewController" customModule="MP" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="userInfoSetting" id="PpR-Xo-bgH" customClass="userInformationViewController" customModule="MP" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="z2q-Zt-Y7X"/>
                         <viewControllerLayoutGuide type="bottom" id="79g-Hq-8S4"/>
@@ -42,57 +42,73 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="孩子姓名" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4aq-mU-nz5">
-                                <rect key="frame" x="16" y="82" width="68" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="孩子姓名" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4aq-mU-nz5">
+                                <rect key="frame" x="16" y="82" width="68" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="孩子性别" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rwp-qU-rPr">
-                                <rect key="frame" x="16" y="143" width="68" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="孩子性别" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rwp-qU-rPr">
+                                <rect key="frame" x="16" y="167" width="68" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="孩子生日" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EGj-M0-VvN">
-                                <rect key="frame" x="16" y="199" width="68" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="孩子生日" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EGj-M0-VvN">
+                                <rect key="frame" x="16" y="249" width="68" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0ma-7k-kOi">
-                                <rect key="frame" x="16" y="105" width="450" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0ma-7k-kOi">
+                                <rect key="frame" x="16" y="110.5" width="568" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <datePicker contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="oLg-NN-E8v">
-                                <rect key="frame" x="0.0" y="228" width="600" height="162"/>
-                                <date key="date" timeIntervalSinceReferenceDate="455737008.85861403">
-                                    <!--2015-06-11 17:36:48 +0000-->
-                                </date>
-                                <locale key="locale" localeIdentifier="zh_CN"/>
-                            </datePicker>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Owp-vI-QGg">
-                                <rect key="frame" x="16" y="172" width="123" height="29"/>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Owp-vI-QGg">
+                                <rect key="frame" x="16" y="196" width="123" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="123" id="7Gf-YO-Ymi"/>
+                                </constraints>
                                 <segments>
                                     <segment title="男孩"/>
                                     <segment title="女孩"/>
                                 </segments>
                             </segmentedControl>
+                            <datePicker contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="oLg-NN-E8v">
+                                <rect key="frame" x="0.0" y="286" width="600" height="162"/>
+                                <date key="date" timeIntervalSinceReferenceDate="455737008.85861403">
+                                    <!--2015-06-11 17:36:48 +0000-->
+                                </date>
+                                <locale key="locale" localeIdentifier="zh_CN"/>
+                            </datePicker>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="Owp-vI-QGg" firstAttribute="top" secondItem="Rwp-qU-rPr" secondAttribute="bottom" constant="8" id="0I9-2g-DMt"/>
+                            <constraint firstItem="0ma-7k-kOi" firstAttribute="leading" secondItem="c5d-Xq-04E" secondAttribute="leadingMargin" id="41O-Qk-kmy"/>
                             <constraint firstItem="mm8-qa-3nu" firstAttribute="top" secondItem="c5d-Xq-04E" secondAttribute="topMargin" id="6q7-FS-xlQ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="S2a-OA-XAK" secondAttribute="trailing" constant="-16" id="7nU-Td-arn"/>
                             <constraint firstItem="S2a-OA-XAK" firstAttribute="leading" secondItem="c5d-Xq-04E" secondAttribute="leadingMargin" constant="-16" id="A1G-dA-oiK"/>
+                            <constraint firstItem="Owp-vI-QGg" firstAttribute="leading" secondItem="c5d-Xq-04E" secondAttribute="leadingMargin" id="ENz-XX-NcR"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="0ma-7k-kOi" secondAttribute="trailing" id="FfI-I0-vGQ"/>
+                            <constraint firstItem="Rwp-qU-rPr" firstAttribute="leading" secondItem="c5d-Xq-04E" secondAttribute="leadingMargin" id="J4X-A1-T0s"/>
+                            <constraint firstItem="4aq-mU-nz5" firstAttribute="leading" secondItem="c5d-Xq-04E" secondAttribute="leadingMargin" id="RzC-bn-j6r"/>
                             <constraint firstItem="oLg-NN-E8v" firstAttribute="leading" secondItem="c5d-Xq-04E" secondAttribute="leadingMargin" constant="-16" id="eIo-hI-bpc"/>
                             <constraint firstAttribute="trailingMargin" secondItem="oLg-NN-E8v" secondAttribute="trailing" constant="-16" id="fwT-Gi-9hk"/>
+                            <constraint firstItem="0ma-7k-kOi" firstAttribute="top" secondItem="4aq-mU-nz5" secondAttribute="bottom" constant="8" id="idi-uj-2uX"/>
+                            <constraint firstItem="Rwp-qU-rPr" firstAttribute="top" secondItem="0ma-7k-kOi" secondAttribute="bottom" constant="26.5" id="jhz-6r-ecy"/>
+                            <constraint firstItem="oLg-NN-E8v" firstAttribute="top" secondItem="EGj-M0-VvN" secondAttribute="bottom" constant="16" id="l5D-mV-yqs"/>
                             <constraint firstItem="mm8-qa-3nu" firstAttribute="leading" secondItem="c5d-Xq-04E" secondAttribute="leadingMargin" constant="-16" id="o1y-iY-6dS"/>
                             <constraint firstItem="S2a-OA-XAK" firstAttribute="top" secondItem="c5d-Xq-04E" secondAttribute="topMargin" constant="20" id="olG-M9-vpC"/>
+                            <constraint firstItem="EGj-M0-VvN" firstAttribute="top" secondItem="Owp-vI-QGg" secondAttribute="bottom" constant="25" id="qbi-gi-tdt"/>
                             <constraint firstAttribute="trailingMargin" secondItem="mm8-qa-3nu" secondAttribute="trailing" constant="-16" id="rgD-so-SBN"/>
+                            <constraint firstItem="4aq-mU-nz5" firstAttribute="top" secondItem="S2a-OA-XAK" secondAttribute="bottom" constant="18" id="yYO-jG-7zk"/>
+                            <constraint firstItem="EGj-M0-VvN" firstAttribute="leading" secondItem="c5d-Xq-04E" secondAttribute="leadingMargin" id="z6i-Hw-ETk"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="cancelButton" destination="SpO-d2-IPp" id="smC-lV-tvn"/>
                         <outlet property="childBirthdayDatePicker" destination="oLg-NN-E8v" id="lsQ-pK-2yz"/>
                         <outlet property="childNameTextField" destination="0ma-7k-kOi" id="9Qt-QP-qhZ"/>
                         <outlet property="childSexualitySegmentedControl" destination="Owp-vI-QGg" id="L7o-Na-atb"/>
@@ -216,6 +232,9 @@
                                 <state key="normal" image="like">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="tapLikeButton:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="DVx-la-jfO"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>

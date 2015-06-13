@@ -38,5 +38,11 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+	<key>serverDomain</key>
+	<string>localhost</string>
+	<key>serverPort</key>
+	<string>3000</string>
+	<key>version</key>
+	<integer>1</integer>
 </dict>
 </plist>

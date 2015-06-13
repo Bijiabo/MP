@@ -1,7 +1,8 @@
 //: Playground - noun: a place where people can play
 
 import UIKit
-
+/*
+生成锁屏界面
 let frameColor : UIColor = UIColor.whiteColor()
 
 var view : UIView = UIView(frame: CGRectMake(0, 0, 600, 600))
@@ -55,3 +56,43 @@ view.layer.renderInContext(UIGraphicsGetCurrentContext())
 let image : UIImage = UIGraphicsGetImageFromCurrentImageContext()
 
 UIGraphicsEndImageContext()
+*/
+
+/*!
+计算年龄
+
+:param: date 需要计算的日期
+
+:returns: 返回年龄
+*/
+func ageWithDateOfBirth(date: NSDate) -> (Age : Int , Month : Int) {
+    // 出生日期转换 年月日
+    let components1 = NSCalendar.currentCalendar().components(.DayCalendarUnit | .MonthCalendarUnit | .YearCalendarUnit, fromDate: date);
+    let brithDateYear  = components1.year;
+    let brithDateDay   = components1.day;
+    let brithDateMonth = components1.month;
+    
+    // 获取系统当前 年月日
+    let components2 = NSCalendar.currentCalendar().components(.DayCalendarUnit | .MonthCalendarUnit | .YearCalendarUnit, fromDate: NSDate())
+    let currentDateYear  = components2.year;
+    let currentDateDay   = components2.day;
+    let currentDateMonth = components2.month;
+    
+    // 计算年龄
+    var iAge = currentDateYear - brithDateYear - 1;
+    var mongth = currentDateMonth - brithDateMonth
+    if ((currentDateMonth > brithDateMonth) || (currentDateMonth == brithDateMonth && currentDateDay >= brithDateDay)) {
+        iAge++;
+    }
+    
+    return (Age : iAge , Month : mongth);
+}
+
+let birthday : NSDate = NSDate(timeIntervalSinceNow: NSTimeInterval(-3600 * 24 * (30*5) ))
+let ageString =  ageWithDateOfBirth(birthday)
+ageString.Age
+ageString.Month
+
+//获取设备唯一识别码
+NSUUID().UUIDString
+

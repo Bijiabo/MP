@@ -88,7 +88,8 @@ class Server {
                     list.append([
                         "name" : subJson1["name"].stringValue,
                         "url": subJson1["url"].stringValue,
-                        "tag": subJson1["tag"].stringValue
+                        "tag": subJson1["tag"].stringValue,
+                        "id" : subJson1["id"].stringValue
                         ])
                 }
                 

@@ -89,9 +89,21 @@ class NetworkService : NSObject {
         })
     }
     
-    internal func signup(#username : String, password : String , fullname : String , callback: ([NSObject : AnyObject]!,NSError!)->Void )
+    internal func signupAndLogin(#username : String, password : String , fullname : String , callback: ([NSObject : AnyObject]!,NSError!)->Void )
     {
-        _meteorClient.signupWithUsername(username, password: password, fullname: fullname, responseCallback: callback)
+        _meteorClient.signupWithUsername(username, password: password, fullname: fullname, responseCallback: {
+            (response,error) -> Void in
+            
+            if error == nil
+            {
+                self.login(username: username, password: password, callback: callback)
+            }
+            else
+            {
+                callback(response,error)
+            }
+            
+        })
     }
     
     
@@ -207,6 +219,13 @@ class NetworkService : NSObject {
     internal func loggedIn() -> Bool
     {
         return _meteorClient.authState == AuthState.LoggedIn ? true : false
+    }
+    
+    
+    //孩子喜好
+    internal func childLike (#playItemId : String , like : Bool ,  callback :  ([NSObject : AnyObject]!,NSError!)->Void) -> Void
+    {
+        _meteorClient.callMethodName("childLike", parameters: [playItemId, like , "户外" , 1], responseCallback: callback)
     }
     
 }

@@ -45,6 +45,13 @@ class mainViewController: UIViewController, UITabBarDelegate
         super.viewWillAppear(animated)
         
         refreshView()
+        
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        delegate.initResignProgress()
     }
     
 
@@ -202,7 +209,11 @@ class mainViewController: UIViewController, UITabBarDelegate
     
     //用户点击「孩子不喜欢」按钮
     @IBAction func tapDislikeButton(sender: AnyObject) {
-        delegate.refreshPlayerAndView(switchToNext: true)
+        delegate.childDislikeCurrentAudio()
+    }
+    
+    @IBAction func tapLikeButton(sender: AnyObject) {
+        delegate.childLikeCurrentAudio()
     }
     
 }

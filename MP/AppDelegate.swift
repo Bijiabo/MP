@@ -22,6 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
     var networkServer : NetworkService!
     
     var stateAvtive : Bool = true
+    var userHadViewSettings : Bool = false
     
     func initServer () -> Void
     {
@@ -44,10 +45,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
         remoteCommandCenter.initMPRemoteCommandCenter()
     }
     
+    func initNetworkServer()
+    {
+        let serverDomain : String = NSBundle.mainBundle().objectForInfoDictionaryKey("serverDomain") as! String
+        let serverPort : String = NSBundle.mainBundle().objectForInfoDictionaryKey("serverPort") as! String
+        
+        networkServer = NetworkService(domain: serverDomain, port: serverPort)
+    }
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool
     {
-        //set network server
-        networkServer = NetworkService(domain: "localhost", port: "3000")
+        initNetworkServer()
         
         initServer()
         
@@ -246,9 +254,61 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
         server.playOnceAgain = isAgain
     }
     
+    func childLikeCurrentAudio () -> Void
+    {
+        //获取当前音频id，提交孩子喜好至服务端
+        let playItemId : String = server.currentPlayContent()["id"]!
+        
+        networkServer.childLike(playItemId: playItemId, like: true, callback: {
+            (response,error) -> Void in
+            
+            println(response)
+            println(error)
+        })
+    }
+    
     func childDislikeCurrentAudio () -> Void
     {
+        //获取当前音频id，提交孩子喜好至服务端
+        let playItemId : String = server.currentPlayContent()["id"]!
+        
+        networkServer.childLike(playItemId: playItemId, like: false, callback: {
+            (response,error) -> Void in
+            
+            println(response)
+            println(error)
+        })
+        
+        //切换至下一音频
         refreshPlayerAndView(switchToNext: true)
+        
+    }
+    
+    func initResignProgress ()
+    {
+        if NSUserDefaults.standardUserDefaults().objectForKey("childName") == nil && userHadViewSettings == false
+        {
+            userHadViewSettings = true
+            
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let resignVC = storyboard.instantiateViewControllerWithIdentifier("userInfoSetting") as! userInformationViewController
+            
+            self.window?.rootViewController!.presentViewController(resignVC, animated: true, completion: nil)
+        }
+        
+    }
+    
+    func signup() -> Void
+    {
+        //临时验证
+        let password : String = NSUUID().UUIDString
+        let username : String = NSUUID().UUIDString
+        
+        networkServer.signupAndLogin(username: username, password: password, fullname: username, callback: {
+            (response,error) -> Void in
+            
+            println(error)
+        })
     }
 }
 
