@@ -36,6 +36,14 @@
 		A1D011A21B2982D70074A0A3 /* RemoteCommandCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19380631B25E682003F9AFA /* RemoteCommandCenter.swift */; };
 		A1D011A31B2982F20074A0A3 /* bridge.m in Sources */ = {isa = PBXBuildFile; fileRef = A1D011971B297E540074A0A3 /* bridge.m */; };
 		A1D011A41B2982F20074A0A3 /* MP-Bridging-Header.h in Sources */ = {isa = PBXBuildFile; fileRef = A1D011951B297E540074A0A3 /* MP-Bridging-Header.h */; };
+		A1EEE68E1B2DE4E0008703E0 /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EEE68D1B2DE4E0008703E0 /* InterfaceController.swift */; };
+		A1EEE6901B2DE4E0008703E0 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EEE68F1B2DE4E0008703E0 /* NotificationController.swift */; };
+		A1EEE6921B2DE4E0008703E0 /* GlanceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EEE6911B2DE4E0008703E0 /* GlanceController.swift */; };
+		A1EEE6941B2DE4E0008703E0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1EEE6931B2DE4E0008703E0 /* Images.xcassets */; };
+		A1EEE6981B2DE4E1008703E0 /* 磨耳朵 WatchKit App.app in Resources */ = {isa = PBXBuildFile; fileRef = A1EEE6971B2DE4E0008703E0 /* 磨耳朵 WatchKit App.app */; };
+		A1EEE6A01B2DE4E1008703E0 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1EEE69E1B2DE4E1008703E0 /* Interface.storyboard */; };
+		A1EEE6A21B2DE4E1008703E0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1EEE6A11B2DE4E1008703E0 /* Images.xcassets */; };
+		A1EEE6A51B2DE4E1008703E0 /* 磨耳朵 WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = A1EEE6881B2DE4E0008703E0 /* 磨耳朵 WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A1FE10831B29FEFC00EE2B73 /* userInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FE10821B29FEFC00EE2B73 /* userInformationViewController.swift */; };
 		A1FE10841B29FEFC00EE2B73 /* userInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FE10821B29FEFC00EE2B73 /* userInformationViewController.swift */; };
 		A1FE108D1B2A088E00EE2B73 /* playlistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FE108C1B2A088E00EE2B73 /* playlistViewController.swift */; };
@@ -56,7 +64,35 @@
 			remoteGlobalIDString = 839BC7871B1CAE8900075C7C;
 			remoteInfo = MP;
 		};
+		A1EEE6991B2DE4E1008703E0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 839BC7801B1CAE8900075C7C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A1EEE6961B2DE4E0008703E0;
+			remoteInfo = "磨耳朵 WatchKit App";
+		};
+		A1EEE6A31B2DE4E1008703E0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 839BC7801B1CAE8900075C7C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A1EEE6871B2DE4E0008703E0;
+			remoteInfo = "磨耳朵 WatchKit Extension";
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		A1EEE6AC1B2DE4E1008703E0 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				A1EEE6A51B2DE4E1008703E0 /* 磨耳朵 WatchKit Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		01931EB4BD72FFB64673B504 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -84,6 +120,17 @@
 		A1D011971B297E540074A0A3 /* bridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bridge.m; sourceTree = "<group>"; };
 		A1D0119A1B297F2E0074A0A3 /* libPods.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPods.a; path = "Pods/../build/Debug-iphoneos/libPods.a"; sourceTree = "<group>"; };
 		A1D0119C1B297F460074A0A3 /* libPods-SocketRocket.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-SocketRocket.a"; path = "Pods/../build/Debug-iphoneos/libPods-SocketRocket.a"; sourceTree = "<group>"; };
+		A1EEE6881B2DE4E0008703E0 /* 磨耳朵 WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "磨耳朵 WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A1EEE68B1B2DE4E0008703E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A1EEE68C1B2DE4E0008703E0 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
+		A1EEE68D1B2DE4E0008703E0 /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
+		A1EEE68F1B2DE4E0008703E0 /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
+		A1EEE6911B2DE4E0008703E0 /* GlanceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlanceController.swift; sourceTree = "<group>"; };
+		A1EEE6931B2DE4E0008703E0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		A1EEE6971B2DE4E0008703E0 /* 磨耳朵 WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "磨耳朵 WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A1EEE69D1B2DE4E1008703E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A1EEE69F1B2DE4E1008703E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
+		A1EEE6A11B2DE4E1008703E0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A1FE10821B29FEFC00EE2B73 /* userInformationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = userInformationViewController.swift; sourceTree = "<group>"; };
 		A1FE108C1B2A088E00EE2B73 /* playlistViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = playlistViewController.swift; sourceTree = "<group>"; };
 		A1FE108F1B2A0A0D00EE2B73 /* playlistTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = playlistTableViewCell.swift; sourceTree = "<group>"; };
@@ -102,6 +149,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		839BC79A1B1CAE8A00075C7C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A1EEE6851B2DE4E0008703E0 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -128,6 +182,8 @@
 				839BC7B11B1CB4DA00075C7C /* resource */,
 				839BC78A1B1CAE8900075C7C /* MP */,
 				839BC7A01B1CAE8A00075C7C /* MPTests */,
+				A1EEE6891B2DE4E0008703E0 /* 磨耳朵 WatchKit Extension */,
+				A1EEE69B1B2DE4E1008703E0 /* 磨耳朵 WatchKit App */,
 				839BC7891B1CAE8900075C7C /* Products */,
 				E6B4D2BF09CB9DEA65E36E78 /* Pods */,
 				2E6248A6D0E422A56720E089 /* Frameworks */,
@@ -140,6 +196,8 @@
 			children = (
 				839BC7881B1CAE8900075C7C /* MP.app */,
 				839BC79D1B1CAE8A00075C7C /* MPTests.xctest */,
+				A1EEE6881B2DE4E0008703E0 /* 磨耳朵 WatchKit Extension.appex */,
+				A1EEE6971B2DE4E0008703E0 /* 磨耳朵 WatchKit App.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -227,6 +285,45 @@
 			name = players;
 			sourceTree = "<group>";
 		};
+		A1EEE6891B2DE4E0008703E0 /* 磨耳朵 WatchKit Extension */ = {
+			isa = PBXGroup;
+			children = (
+				A1EEE68D1B2DE4E0008703E0 /* InterfaceController.swift */,
+				A1EEE68F1B2DE4E0008703E0 /* NotificationController.swift */,
+				A1EEE6911B2DE4E0008703E0 /* GlanceController.swift */,
+				A1EEE6931B2DE4E0008703E0 /* Images.xcassets */,
+				A1EEE68A1B2DE4E0008703E0 /* Supporting Files */,
+			);
+			path = "磨耳朵 WatchKit Extension";
+			sourceTree = "<group>";
+		};
+		A1EEE68A1B2DE4E0008703E0 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				A1EEE68B1B2DE4E0008703E0 /* Info.plist */,
+				A1EEE68C1B2DE4E0008703E0 /* PushNotificationPayload.apns */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A1EEE69B1B2DE4E1008703E0 /* 磨耳朵 WatchKit App */ = {
+			isa = PBXGroup;
+			children = (
+				A1EEE69E1B2DE4E1008703E0 /* Interface.storyboard */,
+				A1EEE6A11B2DE4E1008703E0 /* Images.xcassets */,
+				A1EEE69C1B2DE4E1008703E0 /* Supporting Files */,
+			);
+			path = "磨耳朵 WatchKit App";
+			sourceTree = "<group>";
+		};
+		A1EEE69C1B2DE4E1008703E0 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				A1EEE69D1B2DE4E1008703E0 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		A1FE10921B2A0A1400EE2B73 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -256,10 +353,12 @@
 				839BC7851B1CAE8900075C7C /* Frameworks */,
 				839BC7861B1CAE8900075C7C /* Resources */,
 				B5A164C3387C039C4FE5F5EA /* Copy Pods Resources */,
+				A1EEE6AC1B2DE4E1008703E0 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				A1EEE6A41B2DE4E1008703E0 /* PBXTargetDependency */,
 			);
 			name = MP;
 			productName = MP;
@@ -286,6 +385,39 @@
 			productReference = 839BC79D1B1CAE8A00075C7C /* MPTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		A1EEE6871B2DE4E0008703E0 /* 磨耳朵 WatchKit Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A1EEE6AB1B2DE4E1008703E0 /* Build configuration list for PBXNativeTarget "磨耳朵 WatchKit Extension" */;
+			buildPhases = (
+				A1EEE6841B2DE4E0008703E0 /* Sources */,
+				A1EEE6851B2DE4E0008703E0 /* Frameworks */,
+				A1EEE6861B2DE4E0008703E0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A1EEE69A1B2DE4E1008703E0 /* PBXTargetDependency */,
+			);
+			name = "磨耳朵 WatchKit Extension";
+			productName = "磨耳朵 WatchKit Extension";
+			productReference = A1EEE6881B2DE4E0008703E0 /* 磨耳朵 WatchKit Extension.appex */;
+			productType = "com.apple.product-type.watchkit-extension";
+		};
+		A1EEE6961B2DE4E0008703E0 /* 磨耳朵 WatchKit App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A1EEE6AA1B2DE4E1008703E0 /* Build configuration list for PBXNativeTarget "磨耳朵 WatchKit App" */;
+			buildPhases = (
+				A1EEE6951B2DE4E0008703E0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "磨耳朵 WatchKit App";
+			productName = "磨耳朵 WatchKit App";
+			productReference = A1EEE6971B2DE4E0008703E0 /* 磨耳朵 WatchKit App.app */;
+			productType = "com.apple.product-type.application.watchapp";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -308,6 +440,14 @@
 						CreatedOnToolsVersion = 6.3;
 						TestTargetID = 839BC7871B1CAE8900075C7C;
 					};
+					A1EEE6871B2DE4E0008703E0 = {
+						CreatedOnToolsVersion = 6.3.2;
+						DevelopmentTeam = SK8W4L32D6;
+					};
+					A1EEE6961B2DE4E0008703E0 = {
+						CreatedOnToolsVersion = 6.3.2;
+						DevelopmentTeam = SK8W4L32D6;
+					};
 				};
 			};
 			buildConfigurationList = 839BC7831B1CAE8900075C7C /* Build configuration list for PBXProject "MP" */;
@@ -325,6 +465,8 @@
 			targets = (
 				839BC7871B1CAE8900075C7C /* MP */,
 				839BC79C1B1CAE8A00075C7C /* MPTests */,
+				A1EEE6871B2DE4E0008703E0 /* 磨耳朵 WatchKit Extension */,
+				A1EEE6961B2DE4E0008703E0 /* 磨耳朵 WatchKit App */,
 			);
 		};
 /* End PBXProject section */
@@ -345,6 +487,24 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A1EEE6861B2DE4E0008703E0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A1EEE6941B2DE4E0008703E0 /* Images.xcassets in Resources */,
+				A1EEE6981B2DE4E1008703E0 /* 磨耳朵 WatchKit App.app in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A1EEE6951B2DE4E0008703E0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A1EEE6A01B2DE4E1008703E0 /* Interface.storyboard in Resources */,
+				A1EEE6A21B2DE4E1008703E0 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -461,6 +621,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A1EEE6841B2DE4E0008703E0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A1EEE6901B2DE4E0008703E0 /* NotificationController.swift in Sources */,
+				A1EEE68E1B2DE4E0008703E0 /* InterfaceController.swift in Sources */,
+				A1EEE6921B2DE4E0008703E0 /* GlanceController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -468,6 +638,16 @@
 			isa = PBXTargetDependency;
 			target = 839BC7871B1CAE8900075C7C /* MP */;
 			targetProxy = 839BC79E1B1CAE8A00075C7C /* PBXContainerItemProxy */;
+		};
+		A1EEE69A1B2DE4E1008703E0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A1EEE6961B2DE4E0008703E0 /* 磨耳朵 WatchKit App */;
+			targetProxy = A1EEE6991B2DE4E1008703E0 /* PBXContainerItemProxy */;
+		};
+		A1EEE6A41B2DE4E1008703E0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A1EEE6871B2DE4E0008703E0 /* 磨耳朵 WatchKit Extension */;
+			targetProxy = A1EEE6A31B2DE4E1008703E0 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -486,6 +666,14 @@
 				839BC7971B1CAE8900075C7C /* Base */,
 			);
 			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+		A1EEE69E1B2DE4E1008703E0 /* Interface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A1EEE69F1B2DE4E1008703E0 /* Base */,
+			);
+			name = Interface.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -672,6 +860,76 @@
 			};
 			name = Release;
 		};
+		A1EEE6A61B2DE4E1008703E0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "磨耳朵 WatchKit Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		A1EEE6A71B2DE4E1008703E0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "磨耳朵 WatchKit Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		A1EEE6A81B2DE4E1008703E0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				IBSC_MODULE = "____WatchKit_Extension";
+				INFOPLIST_FILE = "磨耳朵 WatchKit App/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
+			};
+			name = Debug;
+		};
+		A1EEE6A91B2DE4E1008703E0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_NO_COMMON_BLOCKS = YES;
+				IBSC_MODULE = "____WatchKit_Extension";
+				INFOPLIST_FILE = "磨耳朵 WatchKit App/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -701,6 +959,22 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		A1EEE6AA1B2DE4E1008703E0 /* Build configuration list for PBXNativeTarget "磨耳朵 WatchKit App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A1EEE6A81B2DE4E1008703E0 /* Debug */,
+				A1EEE6A91B2DE4E1008703E0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		A1EEE6AB1B2DE4E1008703E0 /* Build configuration list for PBXNativeTarget "磨耳朵 WatchKit Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A1EEE6A61B2DE4E1008703E0 /* Debug */,
+				A1EEE6A71B2DE4E1008703E0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};

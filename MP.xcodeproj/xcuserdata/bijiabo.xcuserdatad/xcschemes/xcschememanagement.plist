@@ -4,10 +4,25 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Glance - 磨耳朵 WatchKit App.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>15</integer>
+		</dict>
 		<key>MP.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
+		</dict>
+		<key>Notification - 磨耳朵 WatchKit App.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>14</integer>
+		</dict>
+		<key>磨耳朵 WatchKit App.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>13</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
@@ -18,6 +33,11 @@
 			<true/>
 		</dict>
 		<key>839BC79C1B1CAE8A00075C7C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A1EEE6961B2DE4E0008703E0</key>
 		<dict>
 			<key>primary</key>
 			<true/>

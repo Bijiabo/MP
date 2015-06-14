@@ -13,10 +13,11 @@ class RemoteCommandCenter : UIResponder {
     
     var delegate : AppDelegate!
     
+    let commandCenter  = MPRemoteCommandCenter.sharedCommandCenter()
     
     func initMPRemoteCommandCenter () -> Void
     {
-        MPRemoteCommandCenter.sharedCommandCenter().pauseCommand.addTargetWithHandler {
+        commandCenter.pauseCommand.addTargetWithHandler {
             (event : MPRemoteCommandEvent!) -> MPRemoteCommandHandlerStatus in
             
             self.delegate.setPayerPlayingStatus(play: false)
@@ -24,24 +25,24 @@ class RemoteCommandCenter : UIResponder {
             return MPRemoteCommandHandlerStatus.Success
         }
         
-        MPRemoteCommandCenter.sharedCommandCenter().playCommand.addTarget(self, action: Selector("playCommand:"))
+        commandCenter.playCommand.addTarget(self, action: Selector("playCommand:"))
         
-        MPRemoteCommandCenter.sharedCommandCenter().togglePlayPauseCommand.addTarget(self, action: Selector("togglePlayPauseCommand:"))
+        commandCenter.togglePlayPauseCommand.addTarget(self, action: Selector("togglePlayPauseCommand:"))
         
-        MPRemoteCommandCenter.sharedCommandCenter().nextTrackCommand.addTarget(self, action: Selector("nextTrackCommand:") )
+        commandCenter.nextTrackCommand.addTarget(self, action: Selector("nextTrackCommand:") )
 
-        MPRemoteCommandCenter.sharedCommandCenter().previousTrackCommand.addTarget(self, action: Selector("previousTrackCommand:"))
+        commandCenter.previousTrackCommand.addTarget(self, action: Selector("previousTrackCommand:"))
         
         //child like
-        MPRemoteCommandCenter.sharedCommandCenter().likeCommand.localizedTitle = "😃 孩子喜欢"
+        commandCenter.likeCommand.localizedTitle = "😃 孩子喜欢"
         
-        MPRemoteCommandCenter.sharedCommandCenter().likeCommand.addTarget(self, action: Selector("childLike:"))
+        commandCenter.likeCommand.addTarget(self, action: Selector("childLike:"))
         //child dislike
-        MPRemoteCommandCenter.sharedCommandCenter().dislikeCommand.localizedTitle = "😞 孩子不喜欢"
+        commandCenter.dislikeCommand.localizedTitle = "😞 孩子不喜欢"
         
-        MPRemoteCommandCenter.sharedCommandCenter().dislikeCommand.addTarget(self, action: Selector("dislikeCommand:"))
-        MPRemoteCommandCenter.sharedCommandCenter().bookmarkCommand.localizedTitle = "🎵 再放一遍"
-        MPRemoteCommandCenter.sharedCommandCenter().bookmarkCommand.addTarget(self, action: Selector("playAgain:"))
+        commandCenter.dislikeCommand.addTarget(self, action: Selector("dislikeCommand:"))
+        commandCenter.bookmarkCommand.localizedTitle = "🎵 再放一遍"
+        commandCenter.bookmarkCommand.addTarget(self, action: Selector("playAgain:"))
         
         UIApplication.sharedApplication().beginReceivingRemoteControlEvents()
         self.delegate.becomeFirstResponder()
@@ -78,6 +79,7 @@ class RemoteCommandCenter : UIResponder {
     internal func nextTrackCommand (e: MPRemoteCommandEvent!) -> MPRemoteCommandHandlerStatus
     {
         
+        
         self.delegate.refreshPlayerAndView(switchToNext: true)
         
         return MPRemoteCommandHandlerStatus.Success
@@ -85,16 +87,16 @@ class RemoteCommandCenter : UIResponder {
     
     internal func childLike (e: MPRemoteCommandEvent!) -> MPRemoteCommandHandlerStatus
     {
-        MPRemoteCommandCenter.sharedCommandCenter().likeCommand.active = true
-        MPRemoteCommandCenter.sharedCommandCenter().dislikeCommand.active = false
+        commandCenter.likeCommand.active = true
+        commandCenter.dislikeCommand.active = false
     
         return MPRemoteCommandHandlerStatus.Success
     }
     
     internal func dislikeCommand (e: MPRemoteCommandEvent!) -> MPRemoteCommandHandlerStatus
     {
-        MPRemoteCommandCenter.sharedCommandCenter().likeCommand.active = false
-        MPRemoteCommandCenter.sharedCommandCenter().dislikeCommand.active = false
+        commandCenter.likeCommand.active = false
+        commandCenter.dislikeCommand.active = false
         
         self.delegate.childDislikeCurrentAudio()
         
@@ -103,7 +105,7 @@ class RemoteCommandCenter : UIResponder {
     
     internal func playAgain (e: MPRemoteCommandEvent!) -> MPRemoteCommandHandlerStatus
     {
-        let previousCommandActiveStatus : Bool = MPRemoteCommandCenter.sharedCommandCenter().bookmarkCommand.active
+        let previousCommandActiveStatus : Bool = commandCenter.bookmarkCommand.active
         
         triggerPlayAgainCommand( !previousCommandActiveStatus )
         
@@ -118,15 +120,15 @@ class RemoteCommandCenter : UIResponder {
     
     internal func refreshPlayAgainCommandView(#active : Bool) -> Void
     {
-        MPRemoteCommandCenter.sharedCommandCenter().bookmarkCommand.active = active
+        commandCenter.bookmarkCommand.active = active
         
         if active
         {
-            MPRemoteCommandCenter.sharedCommandCenter().bookmarkCommand.localizedTitle = "🎵 取消再放一遍"
+            commandCenter.bookmarkCommand.localizedTitle = "🎵 取消再放一遍"
         }
         else
         {
-            MPRemoteCommandCenter.sharedCommandCenter().bookmarkCommand.localizedTitle = "🎵 再放一遍"
+            commandCenter.bookmarkCommand.localizedTitle = "🎵 再放一遍"
         }
 
     }

@@ -21,6 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
     var server : Server!
     var networkServer : NetworkService!
     
+    var nowPlayingCenterController: NowPlayingInfoCenterController!
+    
     var stateAvtive : Bool = true
     var userHadViewSettings : Bool = false
     
@@ -72,7 +74,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
         
         initPlayerAndView()
         
-        initRemoteCommandCenter()
+        //initRemoteCommandCenter()
         
         initAVAudioSession()
         
@@ -195,17 +197,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
     //初始化、更新MPRemoteCommandCenter视图
     func initMPNowPlayingInfoCenter () -> Void
     {
-        updateMPNowPlayingInfoCenter()
+        nowPlayingCenterController = NowPlayingInfoCenterController(app: self)
     }
     
     func updateMPNowPlayingInfoCenter () -> Void
     {
-        let currentPlayItemContent : Dictionary<String,String> = server.currentPlayContent()
-        
-        let audioName : String = currentPlayItemContent["name"]!
-        
-        NowPlayingInfoCenter(AlbumArtist: "磨耳朵", currentPlayItemName: audioName,imageName : server.currentScene, Artist: "\(server.currentScene)磨耳朵", player: player)
-        
+        if let nowPlayingCenter = nowPlayingCenterController
+        {
+            nowPlayingCenterController.refresh()
+        }
     }
     
     func initPlayerAndView () -> Void
@@ -217,11 +217,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
     
     func refreshView() -> Void
     {
-        //refresh  MPInfo
         updateMPNowPlayingInfoCenter()
-        
-        //refresh mainVC
-        if !stateAvtive {return }
         
         //若为主界面，刷新界面
         if let rootViewController : mainViewController = window?.rootViewController as? mainViewController
@@ -246,6 +242,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
         
         refreshPlayer()
         refreshView()
+    }
+    
+    func changeTitleOfNowPlayingInfoCenter(title : String)
+    {
+        
     }
     
     //MARK:
@@ -355,5 +356,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
         }
         
     }
+    
+    
 }
 
