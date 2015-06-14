@@ -130,7 +130,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
             server.playOnceAgain = false
         }
         
-        
         refreshPlayerAndView(switchToNext: switchToNext)
         
         setPayerPlayingStatus(play: true)
@@ -318,9 +317,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
     
     func signup() -> Void
     {
+        func generate_uuid() -> String
+        {
+            let puuid : CFUUIDRef = CFUUIDCreate( nil )
+            let uuidString : CFStringRef = CFUUIDCreateString( nil, puuid )
+            let result : String = CFStringCreateCopy( nil, uuidString) as String
+
+            return result
+        }
+        
         //临时验证
-        let password : String = NSUUID().UUIDString
-        let username : String = NSUUID().UUIDString
+        let password : String = generate_uuid()
+        let username : String = generate_uuid()
         
         networkServer.signupAndLogin(username: username, password: password, fullname: username, callback: {
             (response,error) -> Void in

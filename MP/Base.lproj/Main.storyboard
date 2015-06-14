@@ -146,7 +146,7 @@
                                     <constraint firstAttribute="height" constant="128" id="7bg-Pd-V6r"/>
                                 </constraints>
                             </imageView>
-                            <tabBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m5N-nm-xav">
+                            <tabBar alpha="0.69999999999999973" contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="m5N-nm-xav">
                                 <rect key="frame" x="-4" y="551" width="608" height="49"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <items>
