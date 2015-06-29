@@ -179,12 +179,6 @@
                                                 <segue destination="PpR-Xo-bgH" kind="presentation" id="9z6-tv-GW7"/>
                                             </connections>
                                         </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="wEK-tT-yFw">
-                                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <connections>
-                                                <segue destination="dsF-rr-8Jj" kind="presentation" id="NZl-LC-PvN"/>
-                                            </connections>
-                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
