@@ -141,6 +141,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
     {
         AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, error: nil)
         AVAudioSession.sharedInstance().setActive(true, error: nil)
+        
+        _addAVAudioSessionObserver()
+    }
+    
+    private func _addAVAudioSessionObserver() -> Void
+    {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("avaudioSessionInterruption:"), name: AVAudioSessionInterruptionNotification, object: nil)
+        
     }
     
     //初始化player,设定当前场景相关音频内容
@@ -262,11 +270,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
             refreshPlayerAndView(switchToNext: false)
         }
     }
-    
+    /*
     func audioPlayerBeginInterruption(player: AVAudioPlayer!) {
         player.play()
     }
-    
+    */
     func playOnceAgain (isAgain : Bool = true) -> Void
     {
         server.playOnceAgain = isAgain
@@ -357,6 +365,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
         
     }
     
+    func avaudioSessionInterruption(notification : NSNotification)
+    {
+        
+        let interuption : NSDictionary = notification.userInfo!
+        let interuptionType : UInt = interuption.valueForKey(AVAudioSessionInterruptionTypeKey) as! UInt
+        
+        
+        if interuptionType == AVAudioSessionInterruptionType.Began.rawValue
+        {
+            println("began")
+            
+            player.pause()
+        }
+        else if interuptionType == AVAudioSessionInterruptionType.Ended.rawValue
+        {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1), dispatch_get_main_queue(), { () -> Void in
+                //self.player.currentTime = NSTimeInterval(0)
+                self.player.play()
+            })
+            
+            
+            AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, error: nil)
+            AVAudioSession.sharedInstance().setActive(true, error: nil)
+            
+            println("end")
+            
+        }
+        
+    }
     
 }
 

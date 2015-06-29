@@ -182,6 +182,8 @@ class mainViewController: UIViewController, UITabBarDelegate
     func initView ()
     {
         refreshView()
+        
+        _refreshTabBar(tabbar: tabBar, scenelist: model["scenelist"] as! Array<String>, currentScene: model["currentScene"] as! String)
     }
     
     
@@ -196,9 +198,6 @@ class mainViewController: UIViewController, UITabBarDelegate
         _refreshAudioInfoView(name: model["name"] as! String, tag: model["tag"] as! String)
 
         _refreshBackgroundImageView(view: self.backgroundImageView)
-        
-        _refreshTabBar(tabbar: tabBar, scenelist: model["scenelist"] as! Array<String>, currentScene: model["currentScene"] as! String)
-
     }
     
     //设定status bar 颜色

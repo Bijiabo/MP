@@ -17,6 +17,7 @@ class userInformationViewController: UIViewController {
     @IBOutlet var cancelButton: UIBarButtonItem!
     
     var delegate : AppDelegate!
+    let ageMax : Int = 3
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,7 +61,7 @@ class userInformationViewController: UIViewController {
     
     func initDatePicker () -> Void
     {
-        let ageMax : Int = 4
+        
         let minimumDate : NSDate = NSDate(timeIntervalSinceNow: NSTimeInterval( -3600*24*365*(ageMax+1) + 3600*24*1 ))
         childBirthdayDatePicker.minimumDate = minimumDate
         childBirthdayDatePicker.maximumDate = NSDate()
@@ -93,7 +94,9 @@ class userInformationViewController: UIViewController {
             let presentChildBirthDay : NSDate = childBirthdayDatePicker.date
             let presentChildAge : (age : Int , month : Int) = AgeCalculator(birth: presentChildBirthDay).age
             
-            NSNotificationCenter.defaultCenter().postNotificationName("childAgeGroupChanged", object: ["age" : presentChildAge.age] as AnyObject)
+            let age : (age : Int , month : Int) = presentChildAge.age <= ageMax ? presentChildAge : (age : presentChildAge.age , month : 0)
+            
+            NSNotificationCenter.defaultCenter().postNotificationName("childAgeGroupChanged", object: ["age" : age.age] as AnyObject)
         }
         
         //若为新用户，注册

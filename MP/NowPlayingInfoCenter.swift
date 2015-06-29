@@ -110,14 +110,76 @@ class NowPlayingInfoCenterController: NSObject
         }
         
         remoteCommandCenter.nextTrackCommand.addTargetWithHandler { (event: MPRemoteCommandEvent!) -> MPRemoteCommandHandlerStatus in
-            self.setViewProperty(MPMediaItemPropertyTitle, value: "长按⏩键切换到XXX模式")
+            //self.setViewProperty(MPMediaItemPropertyTitle, value: "长按⏩键切换到XXX模式")
+            self.app.refreshPlayerAndView(switchToNext: true)
             
             return MPRemoteCommandHandlerStatus.Success
         }
-
+        /*
         remoteCommandCenter.seekForwardCommand.addTargetWithHandler { (event: MPRemoteCommandEvent!) -> MPRemoteCommandHandlerStatus in
             self.app.switchScene(targetScene: "午后")
             return MPRemoteCommandHandlerStatus.Success
         }
+        */
+        
+        //child like
+        remoteCommandCenter.likeCommand.localizedTitle = "😃 孩子喜欢"
+        
+        remoteCommandCenter.likeCommand.addTarget(self, action: Selector("childLike:"))
+        //child dislike
+        remoteCommandCenter.dislikeCommand.localizedTitle = "😞 孩子不喜欢"
+        
+        remoteCommandCenter.dislikeCommand.addTarget(self, action: Selector("dislikeCommand:"))
+        remoteCommandCenter.bookmarkCommand.localizedTitle = "🎵 再放一遍"
+        remoteCommandCenter.bookmarkCommand.addTarget(self, action: Selector("playAgain:"))
+        
+    }
+    
+    internal func childLike (e: MPRemoteCommandEvent!) -> MPRemoteCommandHandlerStatus
+    {
+        MPRemoteCommandCenter.sharedCommandCenter().likeCommand.active = true
+        MPRemoteCommandCenter.sharedCommandCenter().dislikeCommand.active = false
+        
+        return MPRemoteCommandHandlerStatus.Success
+    }
+    
+    internal func dislikeCommand (e: MPRemoteCommandEvent!) -> MPRemoteCommandHandlerStatus
+    {
+        MPRemoteCommandCenter.sharedCommandCenter().likeCommand.active = false
+        MPRemoteCommandCenter.sharedCommandCenter().dislikeCommand.active = false
+        
+        self.app.childDislikeCurrentAudio()
+        
+        return MPRemoteCommandHandlerStatus.Success
+    }
+    
+    internal func playAgain (e: MPRemoteCommandEvent!) -> MPRemoteCommandHandlerStatus
+    {
+        let previousCommandActiveStatus : Bool = MPRemoteCommandCenter.sharedCommandCenter().bookmarkCommand.active
+        
+        triggerPlayAgainCommand( !previousCommandActiveStatus )
+        
+        return MPRemoteCommandHandlerStatus.Success
+    }
+    
+    internal func triggerPlayAgainCommand (again : Bool) -> Void
+    {
+        self.app.playOnceAgain(isAgain: again)
+        refreshPlayAgainCommandView(active: again)
+    }
+    
+    internal func refreshPlayAgainCommandView(#active : Bool) -> Void
+    {
+        MPRemoteCommandCenter.sharedCommandCenter().bookmarkCommand.active = active
+        
+        if active
+        {
+            MPRemoteCommandCenter.sharedCommandCenter().bookmarkCommand.localizedTitle = "🎵 取消再放一遍"
+        }
+        else
+        {
+            MPRemoteCommandCenter.sharedCommandCenter().bookmarkCommand.localizedTitle = "🎵 再放一遍"
+        }
+        
     }
 }
