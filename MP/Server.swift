@@ -10,77 +10,16 @@
 
 import Foundation
 
-class Server : ServerProtocol
-{
-    var playlist : [Dictionary<String,AnyObject>] = [Dictionary<String,AnyObject>]()
-    var scenelist : Array<String> = Array<String>()
+class Server {
+    
+    //playlist and currentScene
+    var playlist : JSON = JSON([])
     var currentScene : String = ""
-    var playInfo : playInformationProtocol
-    {
-        get{
-            for var i=0 ; i<playlist.count ; i++
-            {
-                if playlist[i]["name"] as! String == currentScene
-                {
-                    if let playlistItem = playlist[i]["list"] as? Array<AnyObject>
-                    {
-                        let item: AnyObject = playlistItem[0]
-                        
-                        class info : playInformationProtocol
-                        {
-                            @objc var id : String = item["id"] as! String
-                            @objc var audioName : String = item["name"] as! String
-                            @objc var tag : String = item["tag"] as! String
-                            @objc var description : String = ""
-                            
-                            @objc var like : Bool = false
-                            @objc var dislike : Bool = false
-                            
-                            @objc var playing : Bool = false
-                            @objc var localUrl : String = ""
-                            
-                            @objc var scene : String = currentScene
-                            @objc var scenelist : Array<String> = []
-                        }
-                        
-                        return info()
-                    }
-                }
-            }
-            
-            return self.playInfo
-        }
-    }
-    
-    //MARK:
-    //MARK: protocol func
-    func switchToScene(targetScene : String)
-    {
-        for var i=0 ; i<scenelist.count ; i++
-        {
-            if scenelist[i] == targetScene && targetScene != currentScene
-            {
-                currentScene = targetScene
-            }
-        }
-    }
-    
-    func next()
-    {
-        
-    }
-    
-    func previous()
-    {
-        
-    }
-    //MARK:
     
     //当前音频是否再次播放一遍
     var playOnceAgain : Bool = false
     
     //当前场景音频播放index
-    /*
     var currentIndexOfScene : Int = 0
     {
         didSet
@@ -91,7 +30,6 @@ class Server : ServerProtocol
             }
         }
     }
-    */
     
     init()
     {
@@ -115,34 +53,14 @@ class Server : ServerProtocol
     }
     
     //初始化播放列表数据
-    func fetchJsonData(data : JSON) -> [Dictionary<String,AnyObject>]
-    {
-        var result : [Dictionary<String,AnyObject>] = [Dictionary<String,AnyObject>]()
-        
-        for (index : String, subJson : JSON) in data
-        {
-            result.append(subJson.dictionaryObject!)
-        }
-        
-        return result
-    }
-    
-    
     func setData(dataFileName fileName : String ) -> Void
     {
-        println("fileName : \(fileName)")
-        
-        playlist = fetchJsonData( dataLoader(dataFileName : fileName , pathInBundle : "resource/data").data )
-        
-        
-        checkLocalMediaAndDownloads()
+        playlist = dataLoader(dataFileName : fileName , pathInBundle : "resource/data").data
     }
     
     func setData(#data : JSON) -> Void
     {
-        playlist = fetchJsonData( data )
-        
-        checkLocalMediaAndDownloads()
+        playlist = data
     }
     
     func setDataAndRefreshServer(dataFileName fileName : String ) -> Void
@@ -152,58 +70,21 @@ class Server : ServerProtocol
         initScene()
     }
     
-    func checkLocalMediaAndDownloads () -> Void
-    {
-        var urls : Array<String> = Array<String>()
-        
-        for var i = 0 ; i < playlist.count ; i++
-        {
-            for (key : String , value : AnyObject) in playlist[i]
-            {
-                if let remoteURLArray =  (value as! Dictionary<String,AnyObject>)["remoteURL"] as? Array<String>
-                {
-                    if remoteURLArray.count > 0
-                    {
-                        let url : String = remoteURLArray[0]
-                        if url != ""
-                        {
-                            urls.append(url)
-                        }
-                    }
-                }
-            }
-        }
-        
-        
-        
-        
-        //let httpDownloader : HttpDownloader = HttpDownloader(queue: urls, cacheSubDirectory: "test")
-        //httpDownloader.startDownloadQueueAsync()
-    }
-    
     //初始化当前默认场景
     func initScene() -> Void
     {
-        for var i = 0 ; i < playlist.count ; i++
+        for (key : String , subJson : JSON) in playlist
         {
-            for (key : String , value : AnyObject) in playlist[i]
-            {
-                if let playlistItem : Dictionary<String , AnyObject> = value as? Dictionary<String, AnyObject>
-                {
-                    currentScene = playlistItem["name"] as! String
-                }
-                
-            }
+            currentScene = subJson["name"].stringValue
+            
+            break
         }
-        
     }
-    /*
+    
     //获取当前场景播放列表
     func getCurrentScenePlaylist() -> [Dictionary<String,String>]
     {
         var list : [Dictionary<String,String>] = [Dictionary<String,String>]()
-        
-        println(playlist)
         
         for (key : String , subJson : JSON) in playlist
         {
@@ -213,7 +94,7 @@ class Server : ServerProtocol
                 {
                     list.append([
                         "name" : subJson1["name"].stringValue,
-                        "url": subJson1["localURI"].stringValue,
+                        "url": subJson1["url"].stringValue,
                         "tag": subJson1["tag"].stringValue,
                         "id" : subJson1["id"].stringValue
                         ])
@@ -283,5 +164,5 @@ class Server : ServerProtocol
         
         return sceneArray
     }
-    */
+    
 }

@@ -8,7 +8,7 @@
 
 import Foundation
 import MediaPlayer
-/*
+
 class RemoteCommandCenter : UIResponder {
     
     var delegate : AppDelegate!
@@ -134,4 +134,3 @@ class RemoteCommandCenter : UIResponder {
     }
     
 }
-*/

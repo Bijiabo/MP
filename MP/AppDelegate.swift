@@ -13,12 +13,11 @@ import MediaPlayer
 
 @UIApplicationMain
 
-class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate , loveActionProtocol,sceneProtocol , playerDelegate
-
+class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate
 {
     var window: UIWindow?
     
-    var player : playerProtocol!
+    var player : audioPlayer!
     var server : Server!
     var networkServer : NetworkService!
     
@@ -26,8 +25,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate , 
     
     var stateAvtive : Bool = true
     var userHadViewSettings : Bool = false
-    
-    var nowPlayInfo : playInformationProtocol!
     
     //MARK:
     //MARK: 📍  init functions
@@ -41,24 +38,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate , 
     func initRootViewController() -> Void
     {
         //set root VC
-        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("MainVC") as! UIViewController
-        
-        
-        if vc.conformsToProtocol(PlayerViewProtocol)
-        {
-            (vc as! PlayerViewProtocol).model = self.nowPlayInfo
-        }
-
+        let rootViewController : mainViewController = window?.rootViewController as! mainViewController
+        rootViewController.delegate = self
     }
 
     func initRemoteCommandCenter() -> Void
     {
         //set MPRemoteCommandCenter
-        /*
         let remoteCommandCenter : RemoteCommandCenter = RemoteCommandCenter()
         remoteCommandCenter.delegate = self
         remoteCommandCenter.initMPRemoteCommandCenter()
-        */
     }
     
     func initNetworkServer()
@@ -89,7 +78,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate , 
         
         initAVAudioSession()
         
-        //initMPNowPlayingInfoCenter()
+        initMPNowPlayingInfoCenter()
         
         initObserver()
         
@@ -111,19 +100,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate , 
     //MARK:
     //MARK: 🎵  player functions
     
-    func togglePlayOrPause()
+    internal func togglePlayPause () -> Void
     {
-        player.togglePlayOrPause()
-    }
-    
-    func play()
-    {
-        player.play()
-    }
-    
-    func pause()
-    {
-        player.pause()
+        setPayerPlayingStatus(play: !player.playing)
     }
     
     func setPayerPlayingStatus(#play : Bool) -> Void
@@ -149,7 +128,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate , 
             switchToNext = false
             
             //取消再放一遍状态
-            //RemoteCommandCenter().refreshPlayAgainCommandView(active: false)
+            RemoteCommandCenter().refreshPlayAgainCommandView(active: false)
             server.playOnceAgain = false
         }
         
@@ -158,7 +137,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate , 
         setPayerPlayingStatus(play: true)
     }
     
-    func initAVAudioSession () -> Void
+    private func initAVAudioSession () -> Void
     {
         AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, error: nil)
         AVAudioSession.sharedInstance().setActive(true, error: nil)
@@ -167,18 +146,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate , 
     //初始化player,设定当前场景相关音频内容
     func initPlayer () -> Void
     {
-        let playContent = server.playInfo
+        let playContent = server.currentPlayContent()
         
         let cachePath : String = NSSearchPathForDirectoriesInDomains(.CachesDirectory , .UserDomainMask, true)[0] as! String
         
-        let playFileName : String = playContent.localUrl
+        let playFileName : String = playContent["url"]!
         
         let playURL : NSURL = NSURL(fileURLWithPath: "\(cachePath)/resource/media/\(playFileName)")!
 
         //若音频文件不存在，则切换至下一首
         if NSFileManager.defaultManager().fileExistsAtPath(playURL.relativePath!) == false
         {
-            //server.currentIndexOfScene++
+            server.currentIndexOfScene++
             initPlayer()
             
             return
@@ -188,20 +167,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate , 
         
         player = audioPlayer(contentsOfURL: playURL, error: &error)
         
+        player.prepareToPlay()
         
-//        #if DEBUG_VERSION
-        //println("DEBUG_VERSION")
+        #if DEBUG_VERSION
+            println("DEBUG_VERSION")
             //测试，仅播放最后15'
-        //player.currentTime = player.duration - 15
-//        #endif
-        
-        //player.delegate = self
+            player.currentTime = player.duration - 15
+        #endif
+            
+        player.delegate = self
     }
     
     
     func refreshPlayer() -> Void
     {
-        var prevPlayingStatus : Bool = player.bePlaying
+        var prevPlayingStatus : Bool = player.playing
         
         initPlayer()
         
@@ -215,10 +195,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate , 
     //MARK: 🔥  view更新相关方法
     
     //初始化、更新MPRemoteCommandCenter视图
-    /*
     func initMPNowPlayingInfoCenter () -> Void
     {
-        nowPlayingCenterController = NowPlayingInfoCenterController(app: self , server : self.server)
+        nowPlayingCenterController = NowPlayingInfoCenterController(app: self)
     }
     
     func updateMPNowPlayingInfoCenter () -> Void
@@ -228,7 +207,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate , 
             nowPlayingCenterController.refresh()
         }
     }
-    */
+    
     func initPlayerAndView () -> Void
     {
         initPlayer()
@@ -238,15 +217,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate , 
     
     func refreshView() -> Void
     {
-        //updateMPNowPlayingInfoCenter()
+        updateMPNowPlayingInfoCenter()
         
-        /*
         //若为主界面，刷新界面
         if let rootViewController : mainViewController = window?.rootViewController as? mainViewController
         {
-            rootViewController.model = server.playInfo
+            var model : Dictionary<String,AnyObject> = server.currentPlayContent()
+            model["playing"] = player.playing
+            model["currentScene"] = server.currentScene
+            model["scenelist"] = server.sceneList()
+            
+            rootViewController.model = model
         }
-        */
     }
     
     
@@ -255,7 +237,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate , 
     {
         if switchToNext
         {
-            //server.currentIndexOfScene++
+            server.currentIndexOfScene++
         }
         
         refreshPlayer()
@@ -271,7 +253,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate , 
     //MARK: 💪  delegate动作接口
     
     //切换场景
-    func switchScene (targetScene : String) -> Void
+    func switchScene (#targetScene : String) -> Void
     {
         if targetScene != server.currentScene
         {
@@ -293,21 +275,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate , 
     func childLikeCurrentAudio () -> Void
     {
         //获取当前音频id，提交孩子喜好至服务端
-        //let playItemId : String = server.currentPlayContent()["id"]!
-        /*
+        let playItemId : String = server.currentPlayContent()["id"]!
+        
         networkServer.childLike(playItemId: playItemId, like: true, callback: {
             (response,error) -> Void in
             
             println(response)
             println(error)
         })
-        */
     }
     
     func childDislikeCurrentAudio () -> Void
     {
         //获取当前音频id，提交孩子喜好至服务端
-        let playItemId : String = server.playInfo.id
+        let playItemId : String = server.currentPlayContent()["id"]!
         
         networkServer.childLike(playItemId: playItemId, like: false, callback: {
             (response,error) -> Void in
@@ -362,9 +343,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate , 
     func initObserver() -> Void
     {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("childAgeGroupChanged:"), name: "childAgeGroupChanged", object: nil)
-        
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("avaudioSessionInterruption:"), name: AVAudioSessionInterruptionNotification, object: nil)
-        
     }
     
     func childAgeGroupChanged(notification : NSNotification) -> Void
@@ -372,8 +350,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate , 
         println("childAgeGroupChanged")
         if let ageGroup : Int = (notification.object as! [String:Int])["age"]
         {
-            
-            
             server.setDataAndRefreshServer(dataFileName: "\(ageGroup).json")
             
             refreshPlayerAndView(switchToNext: false)
@@ -381,50 +357,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate , AVAudioPlayerDelegate , 
         
     }
     
-    func avaudioSessionInterruption(notification : NSNotification)
-    {
-        
-        let interuption : NSDictionary = notification.userInfo!
-        let interuptionType : UInt = interuption.valueForKey(AVAudioSessionInterruptionTypeKey) as! UInt
-        
-        
-        if interuptionType == AVAudioSessionInterruptionType.Began.rawValue
-        {
-            
-            player.pause()
-        }
-        else if interuptionType == AVAudioSessionInterruptionType.Ended.rawValue
-        {
-            UIApplication.sharedApplication().beginReceivingRemoteControlEvents()
-            
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1), dispatch_get_main_queue(), { () -> Void in
-                
-                //AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, error: nil)
-                //AVAudioSession.sharedInstance().setActive(true, error: nil)
-                
-                self.player.play()
-            })
-            
-            
-            AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, error: nil)
-            AVAudioSession.sharedInstance().setActive(true, error: nil)
-            
-        }
-        
-    }
-    
-    
-    //MARK:
-    //MARK: ❤️  loveProtocol
-    func doLike() {
-        
-        
-    }
-    
-    func doDislike() {
-        
-        
-    }
     
 }
 

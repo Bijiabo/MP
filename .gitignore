@@ -2,7 +2,6 @@ app.moreii.com
 background.sketch
 MP/container
 MP/resource/media/*
-MP/resource/data/*
 
 MP.xcodeproj/xcuserdata/KYL.xcuserdatad/xcschemes/MP.xcscheme
 

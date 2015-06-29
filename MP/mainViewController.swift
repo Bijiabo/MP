@@ -8,7 +8,7 @@
 
 import UIKit
 
-class mainViewController: UIViewController, UITabBarDelegate , PlayerViewProtocol
+class mainViewController: UIViewController, UITabBarDelegate
 {
     @IBOutlet weak var tabBar: UITabBar!
     @IBOutlet weak var backgroundImageView: UIImageView!
@@ -18,11 +18,9 @@ class mainViewController: UIViewController, UITabBarDelegate , PlayerViewProtoco
     @IBOutlet var audioTag: UILabel!
     @IBOutlet var audioName: UILabel!
     
+    var delegate : AppDelegate!
     
     //model，初始化此viewController或需要刷新view时传入（一般由AppDelegate传入），然后执行刷新view动作
-    var model : playInformationProtocol!
-    var delegate : protocol<loveActionProtocol,sceneProtocol,playerDelegate>!
-    /*
     var model : Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
     {
         didSet
@@ -30,7 +28,6 @@ class mainViewController: UIViewController, UITabBarDelegate , PlayerViewProtoco
             refreshView()
         }
     }
-    */
     
     override func viewDidLoad()
     {
@@ -53,6 +50,8 @@ class mainViewController: UIViewController, UITabBarDelegate , PlayerViewProtoco
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        
+        delegate.initResignProgress()
     }
     
 
@@ -117,7 +116,7 @@ class mainViewController: UIViewController, UITabBarDelegate , PlayerViewProtoco
         
         let resourceURL : NSURL = NSBundle.mainBundle().resourceURL!.URLByAppendingPathComponent("resource/image", isDirectory: true)
       
-        let sceneKey : String = model.scene
+        let sceneKey : String = model["currentScene"] as! String
         
         let imagePath : NSURL = resourceURL.URLByAppendingPathComponent("\(sceneKey).jpg")
 
@@ -128,14 +127,14 @@ class mainViewController: UIViewController, UITabBarDelegate , PlayerViewProtoco
     {
         if self.navigationBarTitle == nil {return}
 
-        let sceneName : String = model.scene
+        let sceneName : String = model["currentScene"] as! String
         
         navigationBarTitle.title = "\(sceneName)磨耳朵"
     }
     
     @IBAction func togglePlayPause(sender: AnyObject)
     {
-      delegate.togglePlayOrPause()
+      delegate.togglePlayPause()
     }
     
     func _refreshPlayPauseButtonView (#button : UIButton?  , playing : Bool) -> Void
@@ -167,9 +166,9 @@ class mainViewController: UIViewController, UITabBarDelegate , PlayerViewProtoco
     
     func selectedTabBar (#tag : Int) -> Void
     {
-        let scene : String = model.scenelist[tag]
+        let scene : String = (model["scenelist"] as! [String])[tag]
         
-        delegate.switchScene(scene)
+        delegate.switchScene(targetScene: scene)
     }
     
     func _refreshAudioInfoView (#name : String , tag : String ) -> Void
@@ -183,8 +182,6 @@ class mainViewController: UIViewController, UITabBarDelegate , PlayerViewProtoco
     func initView ()
     {
         refreshView()
-        
-        _refreshTabBar(tabbar: tabBar, scenelist: model.scenelist, currentScene: model.scene)
     }
     
     
@@ -194,11 +191,13 @@ class mainViewController: UIViewController, UITabBarDelegate , PlayerViewProtoco
         
         _updateTitle()
 
-        _refreshPlayPauseButtonView(button: self.playPauseButton, playing: model.playing)
+        _refreshPlayPauseButtonView(button: self.playPauseButton, playing: model["playing"] as! Bool)
         
-        _refreshAudioInfoView(name: model.audioName, tag: model.tag)
+        _refreshAudioInfoView(name: model["name"] as! String, tag: model["tag"] as! String)
 
         _refreshBackgroundImageView(view: self.backgroundImageView)
+        
+        _refreshTabBar(tabbar: tabBar, scenelist: model["scenelist"] as! Array<String>, currentScene: model["currentScene"] as! String)
 
     }
     
@@ -210,11 +209,11 @@ class mainViewController: UIViewController, UITabBarDelegate , PlayerViewProtoco
     
     //用户点击「孩子不喜欢」按钮
     @IBAction func tapDislikeButton(sender: AnyObject) {
-        delegate.doLike()
+        delegate.childDislikeCurrentAudio()
     }
     
     @IBAction func tapLikeButton(sender: AnyObject) {
-        delegate.doDislike()
+        delegate.childLikeCurrentAudio()
     }
     
 }

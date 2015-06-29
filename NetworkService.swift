@@ -96,9 +96,6 @@ class NetworkService : NSObject {
             
             if error == nil
             {
-                NSUserDefaults.standardUserDefaults().setObject(username, forKey: "username")
-                NSUserDefaults.standardUserDefaults().setObject(password, forKey: "password")
-                
                 self.login(username: username, password: password, callback: callback)
             }
             else

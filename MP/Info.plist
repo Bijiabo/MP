@@ -7,7 +7,7 @@
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
-	<string>jack1001</string>
+	<string>com.JY.BabyEnglish</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -15,7 +15,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.21</string>
+	<string>1.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
@@ -39,7 +39,7 @@
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
 	<key>serverDomain</key>
-	<string>server.moreii.com</string>
+	<string>localhost</string>
 	<key>serverPort</key>
 	<string>3000</string>
 	<key>version</key>
