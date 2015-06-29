@@ -100,17 +100,12 @@ class CopyBundleFilesToCache {
     
     func removeFileProtection (#path : String) -> Void
     {
-//        println(path)
-        
         let attributes : Dictionary = [NSFileProtectionKey : NSFileProtectionNone]
         
         var error : NSError?
         
         NSFileManager.defaultManager().setAttributes(attributes, ofItemAtPath: path, error: &error)
         
-//        println("remove fileprotection error : ")
-//        println(error)
-//        println("------")
     }
     
     func loopFilesToRemoveProtection (#path : String) -> Void

@@ -1,0 +1,9 @@
+
+/* Class = "WKInterfaceButton"; title = "Button"; ObjectID = "1Zb-cz-4jd"; */
+"1Zb-cz-4jd.title" = "Button";
+
+/* Class = "WKInterfaceLabel"; text = "Alert Label"; ObjectID = "XkS-y5-khE"; */
+"XkS-y5-khE.text" = "Alert Label";
+
+/* Class = "WKInterfaceSwitch"; title = "Switch"; ObjectID = "zjX-AX-0x8"; */
+"zjX-AX-0x8.title" = "Switch";

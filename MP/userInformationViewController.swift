@@ -17,6 +17,7 @@ class userInformationViewController: UIViewController {
     @IBOutlet var cancelButton: UIBarButtonItem!
     
     var delegate : AppDelegate!
+    let ageMax : Int = 4
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,8 +61,8 @@ class userInformationViewController: UIViewController {
     
     func initDatePicker () -> Void
     {
-        let ageMax : Int = 4
-        let minimumDate : NSDate = NSDate(timeIntervalSinceNow: NSTimeInterval( -3600*24*365*(ageMax+1) + 3600*24*1 ))
+        
+        let minimumDate : NSDate = NSDate(timeIntervalSinceNow: NSTimeInterval( -3600*24*365*(ageMax+2) + 3600*24*1 ))
         childBirthdayDatePicker.minimumDate = minimumDate
         childBirthdayDatePicker.maximumDate = NSDate()
         
@@ -73,15 +74,22 @@ class userInformationViewController: UIViewController {
     
     func checkChildAgeGroupChanged () -> Bool
     {
-        //获取先前孩子年龄设置
-        let previousChildBirthDay : NSDate = NSUserDefaults.standardUserDefaults().objectForKey("childBirthday") as! NSDate
-        let previouseChildAge : (age : Int , month : Int) = AgeCalculator(birth: previousChildBirthDay).age
-        
-        //获取现在孩子年龄设置
-        let presentChildBirthDay : NSDate = childBirthdayDatePicker.date
-        let presentChildAge : (age : Int , month : Int) = AgeCalculator(birth: presentChildBirthDay).age
-        
-        return previouseChildAge.age != presentChildAge.age ? true : false
+        if NSUserDefaults.standardUserDefaults().objectForKey("childBirthday") != nil
+        {
+            //获取先前孩子年龄设置
+            let previousChildBirthDay : NSDate = NSUserDefaults.standardUserDefaults().objectForKey("childBirthday") as! NSDate
+            let previouseChildAge : (age : Int , month : Int) = AgeCalculator(birth: previousChildBirthDay).age
+            
+            //获取现在孩子年龄设置
+            let presentChildBirthDay : NSDate = childBirthdayDatePicker.date
+            let presentChildAge : (age : Int , month : Int) = AgeCalculator(birth: presentChildBirthDay).age
+            
+            return previouseChildAge.age != presentChildAge.age ? true : false
+        }
+        else
+        {
+            return true
+        }
     }
     
 
@@ -93,7 +101,7 @@ class userInformationViewController: UIViewController {
             let presentChildBirthDay : NSDate = childBirthdayDatePicker.date
             let presentChildAge : (age : Int , month : Int) = AgeCalculator(birth: presentChildBirthDay).age
             
-            NSNotificationCenter.defaultCenter().postNotificationName("childAgeGroupChanged", object: ["age" : presentChildAge.age] as AnyObject)
+            NSNotificationCenter.defaultCenter().postNotificationName("childAgeGroupChanged", object: ["age" : presentChildAge.age > (ageMax - 1) ? (ageMax - 1): presentChildAge.age] as AnyObject)
         }
         
         //若为新用户，注册
@@ -118,4 +126,8 @@ class userInformationViewController: UIViewController {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
 
+    @IBAction func nameEditDidEndOnExit(sender: AnyObject) {
+        
+        sender.resignFirstResponder()
+    }
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class mainViewController: UIViewController, UITabBarDelegate
+class mainViewController: UIViewController, UITabBarDelegate , PlayerViewProtocol
 {
     @IBOutlet weak var tabBar: UITabBar!
     @IBOutlet weak var backgroundImageView: UIImageView!
@@ -18,9 +18,11 @@ class mainViewController: UIViewController, UITabBarDelegate
     @IBOutlet var audioTag: UILabel!
     @IBOutlet var audioName: UILabel!
     
-    var delegate : AppDelegate!
     
     //model，初始化此viewController或需要刷新view时传入（一般由AppDelegate传入），然后执行刷新view动作
+    var model : playInformationProtocol!
+    var delegate : protocol<loveActionProtocol,sceneProtocol,playerDelegate>!
+    /*
     var model : Dictionary<String,AnyObject> = Dictionary<String,AnyObject>()
     {
         didSet
@@ -28,6 +30,7 @@ class mainViewController: UIViewController, UITabBarDelegate
             refreshView()
         }
     }
+    */
     
     override func viewDidLoad()
     {
@@ -50,8 +53,6 @@ class mainViewController: UIViewController, UITabBarDelegate
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        
-        delegate.initResignProgress()
     }
     
 
@@ -116,7 +117,7 @@ class mainViewController: UIViewController, UITabBarDelegate
         
         let resourceURL : NSURL = NSBundle.mainBundle().resourceURL!.URLByAppendingPathComponent("resource/image", isDirectory: true)
       
-        let sceneKey : String = model["currentScene"] as! String
+        let sceneKey : String = model.scene
         
         let imagePath : NSURL = resourceURL.URLByAppendingPathComponent("\(sceneKey).jpg")
 
@@ -127,14 +128,14 @@ class mainViewController: UIViewController, UITabBarDelegate
     {
         if self.navigationBarTitle == nil {return}
 
-        let sceneName : String = model["currentScene"] as! String
+        let sceneName : String = model.scene
         
         navigationBarTitle.title = "\(sceneName)磨耳朵"
     }
     
     @IBAction func togglePlayPause(sender: AnyObject)
     {
-      delegate.togglePlayPause()
+      delegate.togglePlayOrPause()
     }
     
     func _refreshPlayPauseButtonView (#button : UIButton?  , playing : Bool) -> Void
@@ -166,9 +167,9 @@ class mainViewController: UIViewController, UITabBarDelegate
     
     func selectedTabBar (#tag : Int) -> Void
     {
-        let scene : String = (model["scenelist"] as! [String])[tag]
+        let scene : String = model.scenelist[tag]
         
-        delegate.switchScene(targetScene: scene)
+        delegate.switchScene(scene)
     }
     
     func _refreshAudioInfoView (#name : String , tag : String ) -> Void
@@ -182,6 +183,8 @@ class mainViewController: UIViewController, UITabBarDelegate
     func initView ()
     {
         refreshView()
+        
+        _refreshTabBar(tabbar: tabBar, scenelist: model.scenelist, currentScene: model.scene)
     }
     
     
@@ -191,13 +194,11 @@ class mainViewController: UIViewController, UITabBarDelegate
         
         _updateTitle()
 
-        _refreshPlayPauseButtonView(button: self.playPauseButton, playing: model["playing"] as! Bool)
+        _refreshPlayPauseButtonView(button: self.playPauseButton, playing: model.playing)
         
-        _refreshAudioInfoView(name: model["name"] as! String, tag: model["tag"] as! String)
+        _refreshAudioInfoView(name: model.audioName, tag: model.tag)
 
         _refreshBackgroundImageView(view: self.backgroundImageView)
-        
-        _refreshTabBar(tabbar: tabBar, scenelist: model["scenelist"] as! Array<String>, currentScene: model["currentScene"] as! String)
 
     }
     
@@ -209,11 +210,11 @@ class mainViewController: UIViewController, UITabBarDelegate
     
     //用户点击「孩子不喜欢」按钮
     @IBAction func tapDislikeButton(sender: AnyObject) {
-        delegate.childDislikeCurrentAudio()
+        delegate.doLike()
     }
     
     @IBAction func tapLikeButton(sender: AnyObject) {
-        delegate.childLikeCurrentAudio()
+        delegate.doDislike()
     }
     
 }
